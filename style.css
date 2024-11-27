@@ -1,4 +1,4 @@
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   body {
     background-color: aquamarine;
   }
@@ -22,12 +22,40 @@
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
   }
+  .menu_body {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    padding: 100px 30px 30px 30px;
+    -webkit-transition: left 0.3s ease 0s;
+    transition: left 0.3s ease 0s;
+    overflow: auto;
+  }
+  .menu_body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 70px;
+    background-color: #e36ea3;
+  }
+  .menu_body .menu_list a {
+    color: #e36ea3;
+  }
 }
-@media (max-width: 1024px) {
+@media (min-width: 996px) {
   body {
     background-color: #ecff7f;
   }
 }
+main {
+  padding-top: 6em;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -54,10 +82,15 @@
 .header .header_logo {
   border-radius: 50%;
   background-color: #fff;
+  border: solid #ffffff 5px;
   position: relative;
   z-index: 5;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
+}
+
+.menu_icon span {
+  display: none;
 }
 
 .menu_body ul {
@@ -108,6 +141,7 @@
 
 .menu_arrow {
   display: none;
+  color: #ffffff;
 }
 
 body._tablet .menu_list > li {
@@ -156,8 +190,33 @@ body._tablet .menu_list > li._active .menu_sub_list {
 }
 
 .body._tablet .menu_list > li._active .menu_arrow {
-  -webkit-transform: rotate(-180deg);
-          transform: rotate(-180deg);
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+#products-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 20px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+#products-list .product {
+  text-align: center;
+  -webkit-box-flex: 200px;
+      -ms-flex: 200px;
+          flex: 200px;
+}
+#products-list img {
+  max-width: 100%;
+  max-height: auto;
+  background-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 /*:root {

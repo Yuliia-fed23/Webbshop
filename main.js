@@ -21,11 +21,13 @@ let menuArrow = document.querySelectorAll('.menu_arrow');
 if (menuArrow.length > 0) {
   for (let i = 0; i < menuArrow.length; i++) {
     const menuArrowItem =menuArrow[i];
-    menuArrowItem.addEventListener('click', function() {
+    menuArrowItem.addEventListener('click', function(e) {
       menuArrowItem.parentElement.classList.toggle('_active');
     });
   }
 }
+
+
 
 const menuLinks = document.querySelectorAll('.menu_link[data-goto]');
 if(menuLinks.length > 0){
@@ -47,6 +49,182 @@ if(menuLinks.length > 0){
 }
 
 
+//----------------------------------------------------------------
+const products = [{
+  id: 1,
+  name: 'Product 1',
+  price: 10,
+  amount: 0,
+  rating: 4, 
+  category: 'sweet',
+  img: {
+    url: '/assets/blueberry donut.jpg',
+    width: 200,
+    height: 200,
+    alt: ''
+  },
+},
+
+{
+  id: 2,
+  name: 'Product 2',
+  price: 20,
+  amount: 0,
+  rating: 4, 
+  category: 'sweet',
+  img: {
+    url: '/assets/rose donut.jpg',
+    width: 200,
+    height: 200,
+    alt: ''
+  },
+},
+
+{
+  id: 3,
+  name: 'Product 3',
+  price: 30,
+  amount: 0,
+  rating: 4, 
+  category: 'sweet',
+  img: {
+    url: '/assets/strawberry donut.jpg',
+    width: 200,
+    height: 200,
+    alt: ''
+  },
+},
+
+{
+  name: 'Product 4',
+  price: 40,
+  amount: 0,
+  rating: 4, 
+  category: 'sweet',
+  img: {
+    url: '/assets/vanilla donut.jpg',
+    width: 450,
+    height: 450,
+    alt: ''
+  },
+},
+
+{
+  name: 'Product 5',
+  price: 50,
+  amount: 0,
+  rating: 4, 
+  category: 'sweet',
+  img: {
+    url: '/assets/sugar donut.jpg',
+    width: 200,
+    height: 200,
+    alt: ''
+  },
+},
+
+{
+  name: 'Product 6',
+  price: 60,
+  amount: 0,
+  rating: 4, 
+  category: 'sweet',
+  img: {
+    url: '/assets/coconut donut.jpg',
+    width: 200,
+    height: 200,
+    alt: ''
+  },
+},
+
+{
+  name: 'Product 6',
+  price: 60,
+  amount: 0,
+  rating: 4, 
+  category: 'sweet',
+  img: {
+    url: '/assets/chocolate donut.jpg',
+    width: 200,
+    height: 200,
+    alt: ''
+  },
+},
+
+{
+  name: 'Product 6',
+  price: 60,
+  amount: 0,
+  rating: 4, 
+  category: 'sweet',
+  img: {
+    url: '/assets/white chocolate donut.jpg',
+    width: 200,
+    height: 200,
+    alt: ''
+  },
+},
+
+{
+  name: 'Product 6',
+  price: 60,
+  amount: 0,
+  rating: 4, 
+  category: 'sweet',
+  img: {
+    url: '/assets/apple donut.jpg',
+    width: 200,
+    height: 200,
+    alt: ''
+  },
+},
+
+{
+  name: 'Product 6',
+  price: 60,
+  amount: 0,
+  rating: 4, 
+  category: 'sweet',
+  img: {
+    url: '/assets/powdered sugar donut.jpg',
+    width: 200,
+    height: 200,
+    alt: ''
+  },
+},
+];
+
+const productsLisDiv =document.querySelector('#products-list');
+console.log(productsLisDiv);
+
+//---------------------------Print Products in Html
+
+products.forEach(product => {
+  productsLisDiv.innerHTML += 
+  `<article class= "product">
+  <h3>${product.name}</h3>
+  <img src='${product.img.url}' alt='${product.img.alt}'/>
+  <p>${product.price} kr</p>
+  <p>Rating: ${product.rating}</p>
+  <div>
+  <button class='decrease'>decrease</button>
+  <input type='number' min='0' value='${product.amount}'>
+  <button class='increase' id='increase-${product.id}'>increase</button>
+  </div>
+
+  
+  </article>`;
+});
+
+const increaseButtons = document.querySelectorAll('button.increase');
+increaseButtons.forEach(button =>{
+  button.addEventListener('click', increaseProductCount);
+});
+
+function increaseProductCount(e) {
+  const productId =e.target.id.replace('increase-', '');
+  console.log(productId);
+}
 
 
 
@@ -75,4 +253,3 @@ document.querySelector('#app').innerHTML = `
 
 setupCounter(document.querySelector('#counter'));
 */
-
