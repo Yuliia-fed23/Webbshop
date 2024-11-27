@@ -51,7 +51,7 @@ if(menuLinks.length > 0){
 
 //----------------------------------------------------------------
 const products = [{
-  id: 1,
+  id: 0,
   name: 'Product 1',
   price: 10,
   amount: 0,
@@ -66,11 +66,11 @@ const products = [{
 },
 
 {
-  id: 2,
+  id: 1,
   name: 'Product 2',
-  price: 20,
+  price: 12,
   amount: 0,
-  rating: 4, 
+  rating: 3, 
   category: 'sweet',
   img: {
     url: '/assets/rose donut.jpg',
@@ -81,11 +81,11 @@ const products = [{
 },
 
 {
-  id: 3,
+  id: 2,
   name: 'Product 3',
-  price: 30,
+  price: 13,
   amount: 0,
-  rating: 4, 
+  rating: 2, 
   category: 'sweet',
   img: {
     url: '/assets/strawberry donut.jpg',
@@ -96,10 +96,11 @@ const products = [{
 },
 
 {
+  id: 3,
   name: 'Product 4',
-  price: 40,
+  price: 14,
   amount: 0,
-  rating: 4, 
+  rating: 1.5, 
   category: 'sweet',
   img: {
     url: '/assets/vanilla donut.jpg',
@@ -110,10 +111,11 @@ const products = [{
 },
 
 {
+  id: 4,
   name: 'Product 5',
-  price: 50,
+  price: 14,
   amount: 0,
-  rating: 4, 
+  rating: 5, 
   category: 'sweet',
   img: {
     url: '/assets/sugar donut.jpg',
@@ -124,10 +126,11 @@ const products = [{
 },
 
 {
+  id: 5,
   name: 'Product 6',
-  price: 60,
+  price: 10,
   amount: 0,
-  rating: 4, 
+  rating: 2.5, 
   category: 'sweet',
   img: {
     url: '/assets/coconut donut.jpg',
@@ -138,10 +141,11 @@ const products = [{
 },
 
 {
+  id: 6,
   name: 'Product 7',
-  price: 45,
+  price: 15,
   amount: 0,
-  rating: 4, 
+  rating: 4.5, 
   category: 'sweet',
   img: {
     url: '/assets/chocolate donut.jpg',
@@ -152,10 +156,11 @@ const products = [{
 },
 
 {
+  id: 7,
   name: 'Product 8',
-  price: 30,
+  price: 12,
   amount: 0,
-  rating: 4, 
+  rating: 5, 
   category: 'sweet',
   img: {
     url: '/assets/white chocolate donut.jpg',
@@ -166,10 +171,11 @@ const products = [{
 },
 
 {
+  id: 8,
   name: 'Product 9',
-  price: 20,
+  price: 10,
   amount: 0,
-  rating: 4, 
+  rating: 4.5, 
   category: 'sweet',
   img: {
     url: '/assets/apple donut.jpg',
@@ -180,6 +186,7 @@ const products = [{
 },
 
 {
+  id: 9,
   name: 'Product 10',
   price: 15,
   amount: 0,
@@ -194,6 +201,19 @@ const products = [{
 },
 ];
 
+function getRatingHtml(rating){
+  const isHalf = String(rating).indexOf('.');
+  let html ='';
+  for (let i = 0; i< rating; i++){
+    html +=`<span>⭐</span>`;
+  }
+  if (isHalf !== -1){
+    html += `<span>✩</span>`;
+  }
+  return html;
+}
+
+
 const productsLisDiv =document.querySelector('#products-list');
 console.log(productsLisDiv);
 
@@ -205,11 +225,11 @@ products.forEach(product => {
   <h3>${product.name}</h3>
   <img src='${product.img.url}' alt='${product.img.alt}'/>
   <p>${product.price} kr</p>
-  <p>Rating: ${product.rating}</p>
+  <p>Rating: ${getRatingHtml(product.rating)}</p>
   <div>
-  <button class='decrease'>decrease</button>
-  <input type='number' min='0' value='${product.amount}'>
-  <button class='increase' id='increase-${product.id}'>increase</button>
+  <button class='decrease'>-</button>
+  <input type='number' min='0' value='${product.amount}' id='input-${product.id}'>
+  <button class='increase' id='increase-${product.id}'>+</button>
   </div>
 
   
@@ -222,8 +242,35 @@ increaseButtons.forEach(button =>{
 });
 
 function increaseProductCount(e) {
-  const productId =e.target.id.replace('increase-', '');
-  console.log(productId);
+  const productId = Number(e.target.id.replace('increase-', ''));
+  const foundProductIndex = products.findIndex(product => product.id === productId);
+  console.log('found product', foundProductIndex);
+
+  if (foundProductIndex === -1){
+    console.error('Det fins ingen s[dan produkt i produktlistan');
+    return;
+  }
+
+  products[foundProductIndex].amount += 1;
+
+  document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
+
+  //Alternativ 2
+
+  /*products.forEach(product => {
+    productsLisDiv.innerHTML += 
+    `<article class= "product">
+    <h3>${product.name}</h3>
+    <img src='${product.img.url}' alt='${product.img.alt}'/>
+    <p>${product.price} kr</p>
+    <p>Rating: ${product.rating}</p>
+    <div>
+    <button class='decrease'>decrease</button>
+    <input type='number' min='0' value='${product.amount}'>
+    <button class='increase' id='increase-${product.id}'>increase</button>
+    </div>
+    </article>`;
+  });*/
 }
 
 
