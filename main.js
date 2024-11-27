@@ -138,8 +138,8 @@ const products = [{
 },
 
 {
-  name: 'Product 6',
-  price: 60,
+  name: 'Product 7',
+  price: 45,
   amount: 0,
   rating: 4, 
   category: 'sweet',
@@ -152,8 +152,8 @@ const products = [{
 },
 
 {
-  name: 'Product 6',
-  price: 60,
+  name: 'Product 8',
+  price: 30,
   amount: 0,
   rating: 4, 
   category: 'sweet',
@@ -166,8 +166,8 @@ const products = [{
 },
 
 {
-  name: 'Product 6',
-  price: 60,
+  name: 'Product 9',
+  price: 20,
   amount: 0,
   rating: 4, 
   category: 'sweet',
@@ -180,8 +180,8 @@ const products = [{
 },
 
 {
-  name: 'Product 6',
-  price: 60,
+  name: 'Product 10',
+  price: 15,
   amount: 0,
   rating: 4, 
   category: 'sweet',
