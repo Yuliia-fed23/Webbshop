@@ -286,15 +286,10 @@ function decreaseProductCount(e) {
   const decreaseFoundProductIndex = products.findIndex(product => product.id === decreaseProductId);
   console.log('found product', decreaseFoundProductIndex);
 
- 
-
-  products[decreaseFoundProductIndex].amount -= 1;
+  products[decreaseFoundProductIndex].amount = -1;
 
   document.querySelector(`#input-${decreaseProductId}`).value = products[decreaseFoundProductIndex].amount;
-  if(products[decreaseFoundProductIndex].amount <=0) {
-    console.error('Det fins ingen sådan produkt i produktlistan');
-    return;
-  }
+
 }
   
 
