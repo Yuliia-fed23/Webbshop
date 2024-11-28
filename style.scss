@@ -125,19 +125,21 @@ body._tablet .menu_list > li._active .menu_sub_list {
 
 #products-list{
  display: flex;
- justify-content: center;
- gap: 20px;
+ justify-content: space-between;
+ gap: 10px;
  flex-wrap: wrap;
  .product {
   text-align: center;
-  flex: 200px;
+  flex: 240px;
  }
- 
   img {
    max-width: 100%;
    max-height:auto;
    background-position: center;
    object-fit: cover;
+  }
+  input {
+    width: 50%;
   }
 }
 

@@ -199,6 +199,10 @@ const products = [{
     alt: ''
   },
 },
+
+
+
+
 ];
 
 function getRatingHtml(rating){
@@ -228,7 +232,7 @@ products.forEach(product => {
   <p>Rating: ${getRatingHtml(product.rating)}</p>
   <div>
   <button class='decrease'>-</button>
-  <input type='number' min='0' value='${product.amount}' id='input-${product.id}'>
+  <input type='number' min="0" value='${product.amount}' id='input-${product.id}'>
   <button class='increase' id='increase-${product.id}'>+</button>
   </div>
 
@@ -236,6 +240,7 @@ products.forEach(product => {
   </article>`;
 });
 
+//Increase button
 const increaseButtons = document.querySelectorAll('button.increase');
 increaseButtons.forEach(button =>{
   button.addEventListener('click', increaseProductCount);
@@ -246,10 +251,6 @@ function increaseProductCount(e) {
   const foundProductIndex = products.findIndex(product => product.id === productId);
   console.log('found product', foundProductIndex);
 
-  if (foundProductIndex === -1){
-    console.error('Det fins ingen s[dan produkt i produktlistan');
-    return;
-  }
 
   products[foundProductIndex].amount += 1;
 
@@ -272,6 +273,35 @@ function increaseProductCount(e) {
     </article>`;
   });*/
 }
+
+//Decrease button
+
+const decreaseButtons = document.querySelectorAll('button.decrease');
+decreaseButtons.forEach(button =>{
+  button.addEventListener('click', decreaseProductCount);
+});
+
+function decreaseProductCount(e) {
+  const decreaseProductId = Number(e.target.id.replace('decrease-', ''));
+  const decreaseFoundProductIndex = products.findIndex(product => product.id === decreaseProductId);
+  console.log('found product', decreaseFoundProductIndex);
+
+ 
+
+  products[decreaseFoundProductIndex].amount -= 1;
+
+  document.querySelector(`#input-${decreaseProductId}`).value = products[decreaseFoundProductIndex].amount;
+  if(products[decreaseFoundProductIndex].amount <=0) {
+    console.error('Det fins ingen sådan produkt i produktlistan');
+    return;
+  }
+}
+  
+
+
+
+
+
 
 
 
