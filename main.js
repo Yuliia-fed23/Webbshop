@@ -52,7 +52,7 @@ if(menuLinks.length > 0){
 //----------------------------------------------------------------
 const products = [{
   id: 0,
-  name: 'Product 1',
+  name: 'Blueberry donut',
   price: 10,
   amount: 0,
   rating: 4, 
@@ -67,7 +67,7 @@ const products = [{
 
 {
   id: 1,
-  name: 'Product 2',
+  name: 'Rose donut',
   price: 12,
   amount: 0,
   rating: 3, 
@@ -82,7 +82,7 @@ const products = [{
 
 {
   id: 2,
-  name: 'Product 3',
+  name: 'Strawberry donut',
   price: 13,
   amount: 0,
   rating: 2, 
@@ -97,7 +97,7 @@ const products = [{
 
 {
   id: 3,
-  name: 'Product 4',
+  name: 'Vanilla donut',
   price: 14,
   amount: 0,
   rating: 1.5, 
@@ -112,10 +112,10 @@ const products = [{
 
 {
   id: 4,
-  name: 'Product 5',
+  name: 'Sugar donut',
   price: 14,
   amount: 0,
-  rating: 5, 
+  rating: 4, 
   category: 'sweet',
   img: {
     url: '/assets/sugar donut.jpg',
@@ -127,7 +127,7 @@ const products = [{
 
 {
   id: 5,
-  name: 'Product 6',
+  name: 'Coconut donut',
   price: 10,
   amount: 0,
   rating: 2.5, 
@@ -142,7 +142,7 @@ const products = [{
 
 {
   id: 6,
-  name: 'Product 7',
+  name: 'Chocolate donut',
   price: 15,
   amount: 0,
   rating: 4.5, 
@@ -157,7 +157,7 @@ const products = [{
 
 {
   id: 7,
-  name: 'Product 8',
+  name: 'White chocolate donut',
   price: 12,
   amount: 0,
   rating: 5, 
@@ -172,7 +172,7 @@ const products = [{
 
 {
   id: 8,
-  name: 'Product 9',
+  name: 'Apple donut',
   price: 10,
   amount: 0,
   rating: 4.5, 
@@ -187,7 +187,7 @@ const products = [{
 
 {
   id: 9,
-  name: 'Product 10',
+  name: 'Powdered sugar donut',
   price: 15,
   amount: 0,
   rating: 4, 
@@ -218,27 +218,82 @@ function getRatingHtml(rating){
 }
 
 
-const productsLisDiv =document.querySelector('#products-list');
-console.log(productsLisDiv);
+
 
 //---------------------------Print Products in Html
+function displayProducts (products){
+  const productsList =document.querySelector('#products-list');
+  productsList.innerHTML = '';
 
-products.forEach(product => {
-  productsLisDiv.innerHTML += 
-  `<article class= "product">
-  <h3>${product.name}</h3>
-  <img src='${product.img.url}' alt='${product.img.alt}'/>
+  products.forEach(product => {
+  const productArticle = document.createElement('article');
+  productArticle.classList.add('product');
+  productArticle.innerHTML =
+   `<h3>${product.name}</h3>
+   <img src='${product.img.url}' alt='${product.img.alt}'/>
   <p>${product.price} kr</p>
   <p>Rating: ${getRatingHtml(product.rating)}</p>
   <div>
-  <button class='decrease'>-</button>
+  <button class='decrease' id='decrease-${product.id}'>-</button>
   <input type='number' min="0" value='${product.amount}' id='input-${product.id}'>
   <button class='increase' id='increase-${product.id}'>+</button>
-  </div>
+  </div>`;
+  productsList.appendChild(productArticle);
+  });
+ 
+}
+displayProducts(products);
 
-  
-  </article>`;
-});
+
+
+//Button Sort by price
+function sortByPriceInc(){
+  const sortedProducts = [...products].sort((a, b) => a.price-b.price);
+  displayProducts(sortedProducts);
+}
+
+function sortByPriceDec(){
+  const sortedProducts = [...products].sort((a, b) => b.price-a.price);
+  displayProducts(sortedProducts);
+}
+
+
+//Button Sort by name
+
+function sortByNameInc(){
+  const sortedProducts = [...products].sort((a, b) => a.name.localeCompare(b.name));
+  displayProducts(sortedProducts);
+}
+
+function sortByNameDec(){
+  const sortedProducts = [...products].sort((a, b) => b.name.localeCompare(a.name));
+  displayProducts(sortedProducts);
+}
+
+//Button Sort by rating
+
+function sortByRatingInc(){
+  const sortedProducts = [...products].sort((a, b) => a.rating-b.rating);
+  displayProducts(sortedProducts);
+}
+
+function sortByRatingDec(){
+  const sortedProducts = [...products].sort((a, b) => b.rating-a.rating);
+  displayProducts(sortedProducts);
+}
+
+
+document.getElementById('sortByPriceInc').addEventListener('click', sortByPriceInc);
+document.getElementById('sortByPriceDec').addEventListener('click', sortByPriceDec);
+document.getElementById('sortByNameInc').addEventListener('click', sortByNameInc);
+document.getElementById('sortByNameDec').addEventListener('click', sortByNameDec);
+document.getElementById('sortByRatingInc').addEventListener('click', sortByRatingInc);
+document.getElementById('sortByRatingDec').addEventListener('click', sortByRatingDec);
+
+
+
+
+
 
 //Increase button
 const increaseButtons = document.querySelectorAll('button.increase');
@@ -276,6 +331,7 @@ function increaseProductCount(e) {
 
 //Decrease button
 
+
 const decreaseButtons = document.querySelectorAll('button.decrease');
 decreaseButtons.forEach(button =>{
   button.addEventListener('click', decreaseProductCount);
@@ -286,8 +342,10 @@ function decreaseProductCount(e) {
   const decreaseFoundProductIndex = products.findIndex(product => product.id === decreaseProductId);
   console.log('found product', decreaseFoundProductIndex);
 
-  products[decreaseFoundProductIndex].amount = -1;
 
+  products[decreaseFoundProductIndex].amount -= 1;
+  
+ 
   document.querySelector(`#input-${decreaseProductId}`).value = products[decreaseFoundProductIndex].amount;
 
 }
