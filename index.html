@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -33,6 +33,7 @@
                     <li><a href="" class="menu_sub_link">Sub menu 3</a></li>
                   </ul>
                 </li>
+                <button class='cart-button'><i class="fa-solid fa-basket-shopping"></i></button>
               </ul>
             </nav>
           </div>
@@ -49,16 +50,13 @@
           <button id="sortByRatingDec"><i class="fa-solid fa-star"></i></button>
           <button id="sortByRatingInc"><i class="fa-regular fa-star"></i></button>
           <div id="products-list"></div>
-          <button id="view-card">Check basket</button>
+          
 
-          <div class="cart-window">
-            <div class="cart-content">
+          <div id="cart-window" class="cart-window">
+            <span class="close-cart">X</span>
             <h2>Your basket</h2>
-            <ul id="cart-items"></ul>
-            <p>Sum total: <span id="total">0</span></p>
-            <button id="checkout">Create order</button>
-            <button class="btn-close-cart">Close</button>
-            </div>
+            <div id="cart-items"></div>
+            <div id="total">Sum: </div>
           </div>
 
         </section>
@@ -68,7 +66,8 @@
       </div>
       
     
-      <script src="https://kit.fontawesome.com/80c836855c.js" crossorigin="anonymous"></script>
+      
     <script type="module" src="/main.js"></script>
+    <script src="https://kit.fontawesome.com/80c836855c.js" crossorigin="anonymous"></script>
   </body>
 </html>

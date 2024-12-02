@@ -6,10 +6,10 @@ import './style.scss';
 function checkScreenSize() {
   let width = window.innerWidth;
 
-  if (width < 768){
+  if (width < 768) {
     document.body.classList.add('_mobile');
-  } else if (width >= 768 && width < 1024){
-    document.body.classList.add('_tablet'); 
+  } else if (width >= 768 && width < 1024) {
+    document.body.classList.add('_tablet');
   } else {
     document.body.classList.add('_desktop');
   }
@@ -20,17 +20,15 @@ checkScreenSize();
 let menuArrow = document.querySelectorAll('.menu_arrow');
 if (menuArrow.length > 0) {
   for (let i = 0; i < menuArrow.length; i++) {
-    const menuArrowItem =menuArrow[i];
-    menuArrowItem.addEventListener('click', function(e) {
+    const menuArrowItem = menuArrow[i];
+    menuArrowItem.addEventListener('click', function (e) {
       menuArrowItem.parentElement.classList.toggle('_active');
     });
   }
 }
 
-
-
 const menuLinks = document.querySelectorAll('.menu_link[data-goto]');
-if(menuLinks.length > 0){
+if (menuLinks.length > 0) {
   menuLinks.forEach(menuLink => {
     menuLink.addEventListener('click', onMenuLinkClick);
   });
@@ -38,198 +36,191 @@ if(menuLinks.length > 0){
     const menuLink = e.target;
     if (menuLink.dataset.goto && document.querySelector(menuLink.dataset.goto)) {
       const gotoBlock = document.querySelector(menuLink.dataset.goto);
-      const gotoBlockValue = gotoBlock.getBoundingClientRect().top + scrollY - document.querySelector('header').offsetHeight;
+      const gotoBlockValue =
+        gotoBlock.getBoundingClientRect().top + scrollY - document.querySelector('header').offsetHeight;
       window.scrollTo({
         top: gotoBlockValue,
-        behavior: "smooth"
+        behavior: 'smooth',
       });
       e.preventDefault();
     }
   }
 }
 
-
 //----------------------------------------------------------------
-const products = [{
-  id: 0,
-  name: 'Blueberry donut',
-  price: 10,
-  amount: 0,
-  rating: 4, 
-  category: 'sweet',
-  img: {
-    url: '/assets/blueberry donut.jpg',
-    width: 200,
-    height: 200,
-    alt: ''
+const products = [
+  {
+    id: 0,
+    name: 'Blueberry donut',
+    price: 10,
+    amount: 0,
+    rating: 4,
+    category: 'sweet',
+    img: {
+      url: '/assets/blueberry donut.jpg',
+      width: 200,
+      height: 200,
+      alt: '',
+    },
   },
-},
 
-{
-  id: 1,
-  name: 'Rose donut',
-  price: 12,
-  amount: 0,
-  rating: 3, 
-  category: 'sweet',
-  img: {
-    url: '/assets/rose donut.jpg',
-    width: 200,
-    height: 200,
-    alt: ''
+  {
+    id: 1,
+    name: 'Rose donut',
+    price: 12,
+    amount: 0,
+    rating: 3,
+    category: 'sweet',
+    img: {
+      url: '/assets/rose donut.jpg',
+      width: 200,
+      height: 200,
+      alt: '',
+    },
   },
-},
 
-{
-  id: 2,
-  name: 'Strawberry donut',
-  price: 13,
-  amount: 0,
-  rating: 2, 
-  category: 'sweet',
-  img: {
-    url: '/assets/strawberry donut.jpg',
-    width: 200,
-    height: 200,
-    alt: ''
+  {
+    id: 2,
+    name: 'Strawberry donut',
+    price: 13,
+    amount: 0,
+    rating: 2,
+    category: 'sweet',
+    img: {
+      url: '/assets/strawberry donut.jpg',
+      width: 200,
+      height: 200,
+      alt: '',
+    },
   },
-},
 
-{
-  id: 3,
-  name: 'Vanilla donut',
-  price: 14,
-  amount: 0,
-  rating: 1.5, 
-  category: 'sweet',
-  img: {
-    url: '/assets/vanilla donut.jpg',
-    width: 450,
-    height: 450,
-    alt: ''
+  {
+    id: 3,
+    name: 'Vanilla donut',
+    price: 14,
+    amount: 0,
+    rating: 1.5,
+    category: 'sweet',
+    img: {
+      url: '/assets/vanilla donut.jpg',
+      width: 450,
+      height: 450,
+      alt: '',
+    },
   },
-},
 
-{
-  id: 4,
-  name: 'Sugar donut',
-  price: 14,
-  amount: 0,
-  rating: 4, 
-  category: 'sweet',
-  img: {
-    url: '/assets/sugar donut.jpg',
-    width: 200,
-    height: 200,
-    alt: ''
+  {
+    id: 4,
+    name: 'Sugar donut',
+    price: 14,
+    amount: 0,
+    rating: 4,
+    category: 'sweet',
+    img: {
+      url: '/assets/sugar donut.jpg',
+      width: 200,
+      height: 200,
+      alt: '',
+    },
   },
-},
 
-{
-  id: 5,
-  name: 'Coconut donut',
-  price: 10,
-  amount: 0,
-  rating: 2.5, 
-  category: 'sweet',
-  img: {
-    url: '/assets/coconut donut.jpg',
-    width: 200,
-    height: 200,
-    alt: ''
+  {
+    id: 5,
+    name: 'Coconut donut',
+    price: 10,
+    amount: 0,
+    rating: 2.5,
+    category: 'sweet',
+    img: {
+      url: '/assets/coconut donut.jpg',
+      width: 200,
+      height: 200,
+      alt: '',
+    },
   },
-},
 
-{
-  id: 6,
-  name: 'Chocolate donut',
-  price: 15,
-  amount: 0,
-  rating: 4.5, 
-  category: 'sweet',
-  img: {
-    url: '/assets/chocolate donut.jpg',
-    width: 200,
-    height: 200,
-    alt: ''
+  {
+    id: 6,
+    name: 'Chocolate donut',
+    price: 15,
+    amount: 0,
+    rating: 4.5,
+    category: 'sweet',
+    img: {
+      url: '/assets/chocolate donut.jpg',
+      width: 200,
+      height: 200,
+      alt: '',
+    },
   },
-},
 
-{
-  id: 7,
-  name: 'White chocolate donut',
-  price: 12,
-  amount: 0,
-  rating: 5, 
-  category: 'sweet',
-  img: {
-    url: '/assets/white chocolate donut.jpg',
-    width: 200,
-    height: 200,
-    alt: ''
+  {
+    id: 7,
+    name: 'White chocolate donut',
+    price: 12,
+    amount: 0,
+    rating: 5,
+    category: 'sweet',
+    img: {
+      url: '/assets/white chocolate donut.jpg',
+      width: 200,
+      height: 200,
+      alt: '',
+    },
   },
-},
 
-{
-  id: 8,
-  name: 'Apple donut',
-  price: 10,
-  amount: 0,
-  rating: 4.5, 
-  category: 'sweet',
-  img: {
-    url: '/assets/apple donut.jpg',
-    width: 200,
-    height: 200,
-    alt: ''
+  {
+    id: 8,
+    name: 'Apple donut',
+    price: 10,
+    amount: 0,
+    rating: 4.5,
+    category: 'sweet',
+    img: {
+      url: '/assets/apple donut.jpg',
+      width: 200,
+      height: 200,
+      alt: '',
+    },
   },
-},
 
-{
-  id: 9,
-  name: 'Powdered sugar donut',
-  price: 15,
-  amount: 0,
-  rating: 4, 
-  category: 'sweet',
-  img: {
-    url: '/assets/powdered sugar donut.jpg',
-    width: 200,
-    height: 200,
-    alt: ''
+  {
+    id: 9,
+    name: 'Powdered sugar donut',
+    price: 15,
+    amount: 0,
+    rating: 4,
+    category: 'sweet',
+    img: {
+      url: '/assets/powdered sugar donut.jpg',
+      width: 200,
+      height: 200,
+      alt: '',
+    },
   },
-},
-
-
-
-
 ];
 
-function getRatingHtml(rating){
+function getRatingHtml(rating) {
   const isHalf = String(rating).indexOf('.');
-  let html ='';
-  for (let i = 0; i< rating; i++){
-    html +=`<span>⭐</span>`;
+  let html = '';
+  for (let i = 0; i < rating; i++) {
+    html += `<span>⭐</span>`;
   }
-  if (isHalf !== -1){
+  if (isHalf !== -1) {
     html += `<span>✩</span>`;
   }
   return html;
 }
 
-
-
-
 //---------------------------Print Products in Html
-function displayProducts (products){
-  const productsList =document.querySelector('#products-list');
+function displayProducts(products) {
+  const productsList = document.querySelector('#products-list');
   productsList.innerHTML = '';
 
   products.forEach(product => {
-  const productArticle = document.createElement('article');
-  productArticle.classList.add('product');
-  productArticle.innerHTML =
-   `<h3>${product.name}</h3>
+    const productArticle = document.createElement('article');
+    productArticle.classList.add('product');
+    productArticle.innerHTML = `<h3>${product.name}</h3>
    <img src='${product.img.url}' alt='${product.img.alt}'/>
   <p class='price'>${product.price} kr</p>
   <p>Rating: ${getRatingHtml(product.rating)}</p>
@@ -237,52 +228,47 @@ function displayProducts (products){
   <button class='decrease' id='decrease-${product.id}'>-</button>
   <input type='number' min="0" value='${product.amount}' id='input-${product.id}'>
   <button class='increase' id='increase-${product.id}'>+</button>
-  <button class='add-to-cart' data-id ='${product.id}' data-name ='${product.name}' data-price='${product.price}'>Add to card</button>
+  <button class='add-to-cart' onclick='addToCart(${product.id}, ${product.name}, ${product.price})' data-id ='${product.id}' data-name ='${product.name}' data-price='${product.price}'>Add to card</button>
   </div>`;
-  productsList.appendChild(productArticle);
+    productsList.appendChild(productArticle);
   });
- 
 }
 displayProducts(products);
 
-
-
 //Button Sort by price
-function sortByPriceInc(){
-  const sortedProducts = [...products].sort((a, b) => a.price-b.price);
+function sortByPriceInc() {
+  const sortedProducts = [...products].sort((a, b) => a.price - b.price);
   displayProducts(sortedProducts);
 }
 
-function sortByPriceDec(){
-  const sortedProducts = [...products].sort((a, b) => b.price-a.price);
+function sortByPriceDec() {
+  const sortedProducts = [...products].sort((a, b) => b.price - a.price);
   displayProducts(sortedProducts);
 }
-
 
 //Button Sort by name
 
-function sortByNameInc(){
+function sortByNameInc() {
   const sortedProducts = [...products].sort((a, b) => a.name.localeCompare(b.name));
   displayProducts(sortedProducts);
 }
 
-function sortByNameDec(){
+function sortByNameDec() {
   const sortedProducts = [...products].sort((a, b) => b.name.localeCompare(a.name));
   displayProducts(sortedProducts);
 }
 
 //Button Sort by rating
 
-function sortByRatingInc(){
-  const sortedProducts = [...products].sort((a, b) => a.rating-b.rating);
+function sortByRatingInc() {
+  const sortedProducts = [...products].sort((a, b) => a.rating - b.rating);
   displayProducts(sortedProducts);
 }
 
-function sortByRatingDec(){
-  const sortedProducts = [...products].sort((a, b) => b.rating-a.rating);
+function sortByRatingDec() {
+  const sortedProducts = [...products].sort((a, b) => b.rating - a.rating);
   displayProducts(sortedProducts);
 }
-
 
 document.getElementById('sortByPriceInc').addEventListener('click', sortByPriceInc);
 document.getElementById('sortByPriceDec').addEventListener('click', sortByPriceDec);
@@ -290,7 +276,6 @@ document.getElementById('sortByNameInc').addEventListener('click', sortByNameInc
 document.getElementById('sortByNameDec').addEventListener('click', sortByNameDec);
 document.getElementById('sortByRatingInc').addEventListener('click', sortByRatingInc);
 document.getElementById('sortByRatingDec').addEventListener('click', sortByRatingDec);
-
 
 //Total amount
 
@@ -310,33 +295,22 @@ function calculateTotal() {
 
 calculateButton.addEventListener('click', calculateTotal);*/
 
-
-
-
-
 //Increase button
 const increaseButtons = document.querySelectorAll('button.increase');
-increaseButtons.forEach(button =>{
+increaseButtons.forEach(button => {
   button.addEventListener('click', increaseProductCount);
 });
 
 function increaseProductCount(e) {
   const productId = Number(e.target.id.replace('increase-', ''));
   const foundProductIndex = products.findIndex(product => product.id === productId);
-  console.log('found product', foundProductIndex);
-
-
   products[foundProductIndex].amount += 1;
-
   document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
-
 }
 
+//Alternativ 2
 
-
-  //Alternativ 2
-
-  /*products.forEach(product => {
+/*products.forEach(product => {
     productsLisDiv.innerHTML += 
     `<article class= "product">
     <h3>${product.name}</h3>
@@ -351,12 +325,10 @@ function increaseProductCount(e) {
     </article>`;
   });*/
 
-
 //Decrease button
 
-
 const decreaseButtons = document.querySelectorAll('button.decrease');
-decreaseButtons.forEach(button =>{
+decreaseButtons.forEach(button => {
   button.addEventListener('click', decreaseProductCount);
 });
 
@@ -365,20 +337,17 @@ function decreaseProductCount(e) {
   const decreaseFoundProductIndex = products.findIndex(product => product.id === decreaseProductId);
   console.log('found product', decreaseFoundProductIndex);
 
-
   products[decreaseFoundProductIndex].amount -= 1;
-  if(products[decreaseFoundProductIndex].amount <= 0) {
-   console.log('amount' + ' is 0');
-   return;
+  if (products[decreaseFoundProductIndex].amount <= 0) {
+    console.log('amount' + ' is 0');
+    return;
   }
-  
- 
-  document.querySelector(`#input-${decreaseProductId}`).value = products[decreaseFoundProductIndex].amount;
 
+  document.querySelector(`#input-${decreaseProductId}`).value = products[decreaseFoundProductIndex].amount;
 }
 
-
 //Basket
+/*
 
 let cart = [];
 const cartItemsElement = document.getElementById('cart-items');
@@ -434,32 +403,69 @@ checkoutButton.addEventListener('click', () => {
     updateCart();
   }
 });
-  
-function showCart(){
-  const cartItemsContainer = document.querySelector('cart-items');
-  cartItemsContainer.innerHTML = '';
-  if (cart.length ===0){
-    cartItemsContainer.innerHTML = '<p>Your basket  is empty</p>';
-  } else {
-    cart.forEach (product => {
-      const productElement  = document.createElement('div');
-      productElement.innerHTML = `<p>${product.name} - ${product.price}</p>`;
-      cartItemsContainer.appendChild(productElement);
-    });
-  }
-  document.querySelector('cart-window').style.display = 'flex';
 
+function openCart() {
+  document.getElementById('cart-window').style.display = 'block';
+  updateCart();
 }
 
+function closeCart(){
+  document.getElementById('cart-window').style.display='none';
+}
 
+*/
+document.addEventListener('DOMContentLoaded', function () {
+  const openCartButton = document.querySelector('.cart-button');
+  openCartButton.addEventListener('click', openCart);
 
+  const closeCartButton = document.querySelector('.close-cart');
+  closeCartButton.addEventListener('click', closeCart);
 
+  let cart = [];
 
+  function addToCart(id, name, price) {
+    const existingItem = cart.find(item => item.id === id);
+    if (existingItem) {
+      existingItem.amount++;
+    } else {
+      cart.push({ id, name, price, amount: 1 });
+    }
+    updateCart();
+  }
 
+  function updateCart() {
+    const cartItemContainer = document.getElementById('cart-items');
+    cartItemContainer.innerHTML = '';
 
+    if(cart.length === 0) {
+      cartItemContainer.innerHTML = '<p>Your cart is empty</p>';
+      return;
+    }
 
+    products.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'cart-item';
+      itemDiv.innerHTML = `<p>${item.name} x ${item.amount}</p>
+    <p>${item.price * item.amount} kr</p>`;
+      cartItemContainer.appendChild(itemDiv);
+    });
+    const totalDiv = document.getElementById('total');
+    totalDiv.innerHTML = `Total sum: ${getTotal()} kr`;
+  }
 
+  function getTotal() {
+    return products.reduce((total, item) => total + item.price * item.amount, 0);
+  }
 
+  function openCart() {
+    document.getElementById('cart-window').style.display = 'block';
+    updateCart();
+  }
+
+  function closeCart() {
+    document.getElementById('cart-window').style.display = 'none';
+  }
+});
 
 /*
 document.querySelector('#app').innerHTML = `
