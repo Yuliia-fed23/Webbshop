@@ -66,6 +66,7 @@ right: 0;
 background-color: #f28cba;
 padding: 15px;
 min-width: 200px;
+visibility: hidden;
    li{
    margin: 0px 0px 10px 0px;
     &:last-child {
@@ -130,7 +131,7 @@ body._tablet .menu_list > li._active .menu_sub_list {
  flex-wrap: wrap;
  .product {
   text-align: center;
-  flex: 240px;
+  width: 240px;
  }
   img {
    max-width: 100%;
@@ -139,9 +140,25 @@ body._tablet .menu_list > li._active .menu_sub_list {
    object-fit: cover;
   }
   input {
-    width: 50%;
+    width: 30%;
   }
 }
+
+.cart-window {
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display:flex;
+  justify-content: center;
+  .btn-close-cart{
+    margin-top: 20px;
+  }
+
+}
+
+
 
 
 

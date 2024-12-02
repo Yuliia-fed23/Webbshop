@@ -231,12 +231,13 @@ function displayProducts (products){
   productArticle.innerHTML =
    `<h3>${product.name}</h3>
    <img src='${product.img.url}' alt='${product.img.alt}'/>
-  <p>${product.price} kr</p>
+  <p class='price'>${product.price} kr</p>
   <p>Rating: ${getRatingHtml(product.rating)}</p>
   <div>
   <button class='decrease' id='decrease-${product.id}'>-</button>
   <input type='number' min="0" value='${product.amount}' id='input-${product.id}'>
   <button class='increase' id='increase-${product.id}'>+</button>
+  <button class='add-to-cart' data-id ='${product.id}' data-name ='${product.name}' data-price='${product.price}'>Add to card</button>
   </div>`;
   productsList.appendChild(productArticle);
   });
@@ -291,6 +292,24 @@ document.getElementById('sortByRatingInc').addEventListener('click', sortByRatin
 document.getElementById('sortByRatingDec').addEventListener('click', sortByRatingDec);
 
 
+//Total amount
+
+/*
+
+const quantityInput = document.querySelector('input-${product.id}');
+const priceElement = document.querySelector('price');
+const totalAmount = document.querySelector('totalAmount');
+const calculateButton = document.querySelector('calculateBtn');
+
+function calculateTotal() {
+  const quantity =parseInt(quantityInput.value);
+  const price = parseFloat(priceElement.value);
+  const total = quantity * price;
+  totalAmount.textContent = total.toFixed(2);
+}
+
+calculateButton.addEventListener('click', calculateTotal);*/
+
 
 
 
@@ -311,6 +330,10 @@ function increaseProductCount(e) {
 
   document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
 
+}
+
+
+
   //Alternativ 2
 
   /*products.forEach(product => {
@@ -327,7 +350,7 @@ function increaseProductCount(e) {
     </div>
     </article>`;
   });*/
-}
+
 
 //Decrease button
 
@@ -344,13 +367,89 @@ function decreaseProductCount(e) {
 
 
   products[decreaseFoundProductIndex].amount -= 1;
+  if(products[decreaseFoundProductIndex].amount <= 0) {
+   console.log('amount' + ' is 0');
+   return;
+  }
   
  
   document.querySelector(`#input-${decreaseProductId}`).value = products[decreaseFoundProductIndex].amount;
 
 }
-  
 
+
+//Basket
+
+let cart = [];
+const cartItemsElement = document.getElementById('cart-items');
+const totalElement = document.getElementById('total');
+const checkoutButton = document.getElementById('checkout');
+
+function updateCart() {
+  cartItemsElement.innerHTML = '';
+  let total = 0;
+
+  cart.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = `${item.name} - ${item.price}`;
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Delete';
+    removeButton.onclick = () => removeFromCart(item.id);
+    li.appendChild(removeButton);
+
+    cartItemsElement.appendChild(li);
+    total +=item.price;});
+    totalElement.textContent = total;
+
+  }
+
+
+function addToCart (id, name, price){
+  const product = {id, name, price};
+  cart.push(product);
+  updateCart();
+}
+
+function removeFromCart(id){
+  cart = cart.filter(item=> item.id !== id);
+  updateCart();
+}
+
+
+document.querySelectorAll('.add-to-cart').forEach(button => {
+  button.addEventListener('click', () => {
+    const id = button.getAttribute('data-id');
+    const name = button.getAttribute('data-name');
+    const price = parseFloat(button.getAttribute('data-price'));
+    addToCart(id, name, price)
+  });
+});
+
+checkoutButton.addEventListener('click', () => {
+  if (cart.length ===0){
+    alert('Basket is empty');
+  }else {
+    alert('Order is added');
+    cart = [];
+    updateCart();
+  }
+});
+  
+function showCart(){
+  const cartItemsContainer = document.querySelector('cart-items');
+  cartItemsContainer.innerHTML = '';
+  if (cart.length ===0){
+    cartItemsContainer.innerHTML = '<p>Your basket  is empty</p>';
+  } else {
+    cart.forEach (product => {
+      const productElement  = document.createElement('div');
+      productElement.innerHTML = `<p>${product.name} - ${product.price}</p>`;
+      cartItemsContainer.appendChild(productElement);
+    });
+  }
+  document.querySelector('cart-window').style.display = 'flex';
+
+}
 
 
 

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="reset.css" type="text/css" />
     <link rel="stylesheet" href="normalize.css" type="text/css" />
     <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=sort_by_alpha" />
     <title>Munkshop</title>
   </head>
   <body>
@@ -41,13 +42,24 @@
           <h1>Donuts</h1>
         <section class="main_content_1">
           <h2>Products</h2>
-          <button id="sortByPriceDec">Sort by price: Low-High</button>
-          <button id="sortByPriceInc">Sort by price: High-Low</button>
-          <button id="sortByNameInc">Sort by name: A-Z</button>
-          <button id="sortByNameDec">Sort by name: Z-A</button>
-          <button id="sortByRatingDec">Sort by rating: High-Low</button>
-          <button id="sortByRatingInc">Sort by rating: Low-High</button>
+          <button id="sortByPriceDec"><i class="fa-solid fa-arrow-up-1-9"></i></button>
+          <button id="sortByPriceInc"><i class="fa-solid fa-arrow-down-9-1"></i></button>
+          <button id="sortByNameInc"><i class="fa-solid fa-arrow-down-a-z"></i></button>
+          <button id="sortByNameDec"><i class="fa-solid fa-arrow-up-z-a"></i></button>
+          <button id="sortByRatingDec"><i class="fa-solid fa-star"></i></button>
+          <button id="sortByRatingInc"><i class="fa-regular fa-star"></i></button>
           <div id="products-list"></div>
+          <button id="view-card">Check basket</button>
+
+          <div class="cart-window">
+            <div class="cart-content">
+            <h2>Your basket</h2>
+            <ul id="cart-items"></ul>
+            <p>Sum total: <span id="total">0</span></p>
+            <button id="checkout">Create order</button>
+            <button class="btn-close-cart">Close</button>
+            </div>
+          </div>
 
         </section>
 
@@ -56,7 +68,7 @@
       </div>
       
     
-    
+      <script src="https://kit.fontawesome.com/80c836855c.js" crossorigin="anonymous"></script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
