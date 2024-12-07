@@ -57,10 +57,11 @@ main {
 }
 
 input {
-  border: none;
+  border: 1px solid #e36ea3;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+  cursor: pointer;
 }
 
 .header {
@@ -228,7 +229,7 @@ body._tablet .menu_list > li._active .menu_sub_list {
   width: 30%;
 }
 
-#cart-window {
+#card-window {
   width: 500px;
   padding: 20px;
   background-color: #e36ea3;
@@ -239,7 +240,7 @@ body._tablet .menu_list > li._active .menu_sub_list {
   display: none;
   margin: 20px;
 }
-#cart-window .cart-item {
+#card-window .card-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -248,19 +249,19 @@ body._tablet .menu_list > li._active .menu_sub_list {
           justify-content: space-between;
   margin-bottom: 10px;
 }
-#cart-window .close-cart {
+#card-window .close-card, #card-window .btn-close-payment {
   position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 1.5em;
 }
-#cart-window #total {
+#card-window #total {
   font-weight: bold;
   margin-top: 20px;
 }
 
-.open-cart {
+.open-card {
   cursor: pointer;
   border: none;
   padding: 10px;
@@ -268,12 +269,128 @@ body._tablet .menu_list > li._active .menu_sub_list {
   color: #fff;
 }
 
-.cart-button {
+.card-button {
   background-color: #e36ea3;
   border: none;
   font-size: 1.3em;
   color: #fff;
   margin-left: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.payment-options {
+  background-color: rgb(210, 231, 231);
+  border-radius: 8px;
+  padding: 8px;
+  border: 1px solid #262626;
+}
+.payment-options button {
+  padding: 8px 16px;
+  font-size: 1.2rem;
+  background-color: green;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+}
+.payment-options button:disabled {
+  background-color: #b5b5b5;
+  cursor: not-allowed;
+}
+.payment-options .selector {
+  margin-block: 16px;
+  text-align: center;
+}
+.payment-options input.small {
+  width: 80px;
+}
+.payment-options .card label, .payment-options .invoice label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  margin-block: 8px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.btn-close-payment {
+  cursor: pointer;
+  text-align: right;
+  display: block;
+}
+
+.card-pay {
+  width: 500px;
+  padding: 20px;
+  background-color: #e36ea3;
+  border: 1px solid #fff;
+  position: fixed;
+  top: 10%;
+  left: 30%;
+  display: none;
+  margin: 20px;
+}
+
+.error {
+  color: #42ae6e;
+  font-size: 1em;
+}
+
+.information-form {
+  height: 900px;
+  margin-top: 50px;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #e36ea3;
+  border-radius: 5px;
+}
+.form-container button {
+  padding: 5px 25px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.form-container .btn-delete {
+  border: 2px solid #e36ea3;
+  background-color: #fff;
+}
+.form-container .btn-submit {
+  border: 2px solid #e36ea3;
+  background-color: #fff;
+}
+.form-container .send-message {
+  margin-top: 50px;
+  background-color: #fff;
+  color: #000000;
+  border: 1px solid #e36ea3;
+  font-size: 1.5em;
+  padding: 20px;
+  display: none;
+}
+.form-container #discount-code {
+  width: 50%;
+  border: none;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+.form-group input {
+  width: 100%;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 /*:root {

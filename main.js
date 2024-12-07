@@ -212,7 +212,7 @@ function getRatingHtml(rating) {
   return html;
 }
 
-//---------------------------Print Products in Html
+//---------------------------Print Products in Html---------------------------//
 function displayProducts(products) {
   const productsList = document.querySelector('#products-list');
   productsList.innerHTML = '';
@@ -228,14 +228,14 @@ function displayProducts(products) {
   <button class='decrease' id='decrease-${product.id}'>-</button>
   <input type='number' min="0" value='${product.amount}' id='input-${product.id}'>
   <button class='increase' id='increase-${product.id}'>+</button>
-  <button class='add-to-cart' onclick='addToCart(${product.id}, ${product.name}, ${product.price})' data-id ='${product.id}' data-name ='${product.name}' data-price='${product.price}'>Add to card</button>
+  <button class='add-to-card', ${product.name}, ${product.price})' data-id ='${product.id}' data-name ='${product.name}' data-price='${product.price}'>Add to card</button>
   </div>`;
     productsList.appendChild(productArticle);
   });
 }
 displayProducts(products);
 
-//Button Sort by price
+//---------------------------Button sort by price---------------------------//
 function sortByPriceInc() {
   const sortedProducts = [...products].sort((a, b) => a.price - b.price);
   displayProducts(sortedProducts);
@@ -246,7 +246,7 @@ function sortByPriceDec() {
   displayProducts(sortedProducts);
 }
 
-//Button Sort by name
+//---------------------------Button sort by name---------------------------//
 
 function sortByNameInc() {
   const sortedProducts = [...products].sort((a, b) => a.name.localeCompare(b.name));
@@ -258,7 +258,7 @@ function sortByNameDec() {
   displayProducts(sortedProducts);
 }
 
-//Button Sort by rating
+//---------------------------Button sort by rating---------------------------//
 
 function sortByRatingInc() {
   const sortedProducts = [...products].sort((a, b) => a.rating - b.rating);
@@ -277,25 +277,11 @@ document.getElementById('sortByNameDec').addEventListener('click', sortByNameDec
 document.getElementById('sortByRatingInc').addEventListener('click', sortByRatingInc);
 document.getElementById('sortByRatingDec').addEventListener('click', sortByRatingDec);
 
-//Total amount
 
-/*
 
-const quantityInput = document.querySelector('input-${product.id}');
-const priceElement = document.querySelector('price');
-const totalAmount = document.querySelector('totalAmount');
-const calculateButton = document.querySelector('calculateBtn');
 
-function calculateTotal() {
-  const quantity =parseInt(quantityInput.value);
-  const price = parseFloat(priceElement.value);
-  const total = quantity * price;
-  totalAmount.textContent = total.toFixed(2);
-}
 
-calculateButton.addEventListener('click', calculateTotal);*/
-
-//Increase button
+//---------------------------Increase button---------------------------//
 const increaseButtons = document.querySelectorAll('button.increase');
 increaseButtons.forEach(button => {
   button.addEventListener('click', increaseProductCount);
@@ -325,7 +311,7 @@ function increaseProductCount(e) {
     </article>`;
   });*/
 
-//Decrease button
+//---------------------------Decrease button---------------------------//
 
 const decreaseButtons = document.querySelectorAll('button.decrease');
 decreaseButtons.forEach(button => {
@@ -346,111 +332,46 @@ function decreaseProductCount(e) {
   document.querySelector(`#input-${decreaseProductId}`).value = products[decreaseFoundProductIndex].amount;
 }
 
-//Basket
-/*
+//---------------------------Card with products---------------------------//
 
-let cart = [];
-const cartItemsElement = document.getElementById('cart-items');
-const totalElement = document.getElementById('total');
-const checkoutButton = document.getElementById('checkout');
-
-function updateCart() {
-  cartItemsElement.innerHTML = '';
-  let total = 0;
-
-  cart.forEach(item => {
-    const li = document.createElement('li');
-    li.textContent = `${item.name} - ${item.price}`;
-    const removeButton = document.createElement('button');
-    removeButton.textContent = 'Delete';
-    removeButton.onclick = () => removeFromCart(item.id);
-    li.appendChild(removeButton);
-
-    cartItemsElement.appendChild(li);
-    total +=item.price;});
-    totalElement.textContent = total;
-
-  }
-
-
-function addToCart (id, name, price){
-  const product = {id, name, price};
-  cart.push(product);
-  updateCart();
-}
-
-function removeFromCart(id){
-  cart = cart.filter(item=> item.id !== id);
-  updateCart();
-}
-
-
-document.querySelectorAll('.add-to-cart').forEach(button => {
-  button.addEventListener('click', () => {
-    const id = button.getAttribute('data-id');
-    const name = button.getAttribute('data-name');
-    const price = parseFloat(button.getAttribute('data-price'));
-    addToCart(id, name, price)
-  });
-});
-
-checkoutButton.addEventListener('click', () => {
-  if (cart.length ===0){
-    alert('Basket is empty');
-  }else {
-    alert('Order is added');
-    cart = [];
-    updateCart();
-  }
-});
-
-function openCart() {
-  document.getElementById('cart-window').style.display = 'block';
-  updateCart();
-}
-
-function closeCart(){
-  document.getElementById('cart-window').style.display='none';
-}
-
-*/
 document.addEventListener('DOMContentLoaded', function () {
-  const openCartButton = document.querySelector('.cart-button');
+  const openCartButton = document.querySelector('.card-button');
   openCartButton.addEventListener('click', openCart);
 
-  const closeCartButton = document.querySelector('.close-cart');
+  const closeCartButton = document.querySelector('.close-card');
   closeCartButton.addEventListener('click', closeCart);
 
-  let cart = [];
+  let card = [];
 
-  function addToCart(id, name, price) {
-    const existingItem = cart.find(item => item.id === id);
+  function addToCard(id, name, price) {
+    const existingItem = card.find(item => item.id === id);
     if (existingItem) {
       existingItem.amount++;
     } else {
-      cart.push({ id, name, price, amount: 1 });
+      card.push({id, name, price, amount: 1 });
     }
     updateCart();
   }
 
   function updateCart() {
-    const cartItemContainer = document.getElementById('cart-items');
+    const cartItemContainer = document.getElementById('card-items');
     cartItemContainer.innerHTML = '';
 
-    if(cart.length === 0) {
-      cartItemContainer.innerHTML = '<p>Your cart is empty</p>';
-      return;
+    if(card.length <= 0) {
+      cartItemContainer.innerHTML = '<p>Your card is empty</p>';
     }
 
     products.forEach(item => {
       const itemDiv = document.createElement('div');
-      itemDiv.className = 'cart-item';
+      itemDiv.className = 'card-item';
       itemDiv.innerHTML = `<p>${item.name} x ${item.amount}</p>
     <p>${item.price * item.amount} kr</p>`;
       cartItemContainer.appendChild(itemDiv);
     });
     const totalDiv = document.getElementById('total');
     totalDiv.innerHTML = `Total sum: ${getTotal()} kr`;
+
+    addToCard();
   }
 
   function getTotal() {
@@ -458,33 +379,227 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function openCart() {
-    document.getElementById('cart-window').style.display = 'block';
+    document.getElementById('card-window').style.display = 'block';
     updateCart();
   }
 
   function closeCart() {
-    document.getElementById('cart-window').style.display = 'none';
+    document.getElementById('card-window').style.display = 'none';
   }
 });
 
-/*
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`;
 
-setupCounter(document.querySelector('#counter'));
-*/
+
+//--------------------------Facture---------------------------//
+
+const cardInvoiceRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
+const inputs = [
+  document.querySelector('#creditCardNumber'),
+  document.querySelector('#creditCardYear'),
+  document.querySelector('#creditCardMonth'),
+  document.querySelector('#creditCardCvc'),
+  document.querySelector('#personalID')
+];
+
+const invoiceOption = document.querySelector('#invoice');
+const cardOption = document.querySelector('#card');
+const orderBtn = document.querySelector('#orderBtn');
+
+// Default options
+let selectedPaymentOption = 'card';
+
+// Regex
+const personalIdRegEx = new RegExp(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
+const creditCardNumberRegEx = new RegExp(/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/); // MasterCard
+
+// Add event listeners
+inputs.forEach(input => {
+  input.addEventListener('focusout', activateOrderButton);
+  input.addEventListener('change', activateOrderButton);
+});
+
+cardInvoiceRadios.forEach(radioBtn => {
+  radioBtn.addEventListener('change', switchPaymentMethod);
+});
+
+/**
+ * Switches between invoice payment method and
+ * card payment method. Toggles their visibility.
+ */
+
+
+
+
+function switchPaymentMethod(e) {
+  invoiceOption.classList.toggle('hidden');
+  cardOption.classList.toggle('hidden');
+
+  selectedPaymentOption = e.target.value;
+}
+
+function isPersonalIdNumberValid() {
+  return personalIdRegEx.exec('input[name="personal-id"]'.value);
+}
+
+/**
+ * Activate order button if all fields are
+ * correctly filled.
+ */
+
+
+function activateOrderButton() {
+  orderBtn.setAttribute('disabled', '');
+
+  if (selectedPaymentOption === 'invoice' && !isPersonalIdNumberValid()) {
+    return;
+  }
+  
+  if (selectedPaymentOption === 'card') {
+    // Check card number
+    if (creditCardNumberRegEx.exec(creditCardNumber.value) === null) {
+      console.warn('Credit card number not valid.');
+      return;
+    }
+
+    // Check card year
+    let year = Number(creditCardYear.value);
+    const today = new Date();
+    const shortYear = Number(String(today.getFullYear()).substring(2));
+
+    if (year > shortYear + 2 || year < shortYear) {
+      console.warn('Credit card month not valid.');
+      return;
+    }
+
+    // Fixa månad, obs. "padStart" med 0
+    
+    // Check card CVC
+    if (creditCardCvc.value.length !== 3) {
+      console.warn('CVC not valid.');
+      return;
+    }
+  }
+
+  orderBtn.removeAttribute('disabled');
+}
+
+const openCardPayment = document.querySelector('.btn-pay');
+openCardPayment.addEventListener('click', btnOpenCartPayment);
+
+const closeCardPayment = document.querySelector('.btn-close-payment');
+closeCardPayment.addEventListener('click', btnCloseCardPayment);
+
+
+
+function btnOpenCartPayment() {
+  document.querySelector('.card-pay').style.display = 'block';
+}
+
+function btnCloseCardPayment() {
+  document.querySelector('.card-pay').style.display = 'none';
+} 
+
+
+
+
+//---------------------------Customer information form ---------------------------//
+
+const submitBtn = document.querySelector('.btn-submit');
+const deleteBtn = document.querySelector('.btn-delete');
+const purchaseForm = document.getElementById('purchase-form');
+
+function validateForm(){
+  let valid = true;
+  clearErrors();
+
+  const firstName = document.getElementById('first-name').value;
+  if (firstName.trim() === '') {
+    document.getElementById('first-name-error').textContent ='Please write your name.';
+    valid = false;
+  }
+
+  const lastName = document.getElementById('last-name').value;
+  if (lastName.trim() === '') {
+    document.getElementById('last-name-error').textContent ='Please write your last name.';
+    valid = false;
+  }
+
+  const address = document.getElementById('address').value;
+  if (address.trim() === '') {
+    document.getElementById('address-error').textContent ='Please write your address.';
+    valid = false;
+  }
+
+  const postcode = document.getElementById('postcode').value;
+  const postcodeRegex = /^[0-9]{5,6}$/;
+   if (!postcodeRegex.test(postcode)) {
+    document.getElementById('postcode-error').textContent = 'Please write correct postcode.';
+    valid = false;
+   }
+
+   const region = document.getElementById('region').value;
+   if (region.trim() ==='') {
+    document.getElementById('region-error').textContent ='Please write your region.';
+    valid = false;
+   }
+
+   const phone = document.getElementById('phone').value;
+   const phoneRegex = /^\+460\d{9}$/;
+   if (!phoneRegex.test(phone)) {
+    document.getElementById('phone-error').textContent ='Please write your phone.';
+    valid = false;
+   }
+
+   const email = document.getElementById('email').value;
+   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+   if (!emailRegex.test(email)) {
+    document.getElementById('email-error').textContent ='Please write correct email.';
+    valid = false;
+   }
+
+   if (valid) {
+    thankYouMessage(); 
+   return valid;
+  }
+
+};
+
+submitBtn.addEventListener('click', function(event){
+  event.preventDefault();
+  if (validateForm(this) == true){
+    thankYouMessage();
+  }
+});
+
+deleteBtn.addEventListener('click', function(){
+  clearForm();
+});
+
+ clearErrors();
+
+
+function clearForm() {
+ purchaseForm.reset();
+};
+
+function clearErrors() {
+  const errorMessages = document.querySelectorAll('.error');
+  errorMessages.forEach(error => {
+    error.textContent= '';
+  });
+}
+
+function thankYouMessage(){
+  const sendMessage = document.querySelector('.send-message');
+  const currentDate = new Date();
+  
+  currentDate.setDate(currentDate.getDate() + 2);
+  const deliveryDate = currentDate.toLocaleString ('en-En', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  currentDate.toLocaleString ('sv-SV', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
+
+  sendMessage.innerHTML = `Thank you for your order! You will receive your order on ${deliveryDate}.`;
+  sendMessage.style.display='block';
+  clearForm();
+}
+
+

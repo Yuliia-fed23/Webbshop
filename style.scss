@@ -2,14 +2,22 @@
 @import 'mobile';
 @import 'tablet';
 
+//!!!!!!!!!!!!!!   OBS
+
+//Ska jobba med css styles/design
+//Ska skapa variables och  mixins som har samma css styles   
+
 main {
   padding-top: 6em;
 }
 
 input {
-  border: none;
+  border: 1px solid #e36ea3;
   appearance: none;
+  cursor: pointer;
 }
+
+//Menu
 
 .header {
 position: fixed;
@@ -129,6 +137,8 @@ body._tablet .menu_list > li._active .menu_sub_list {
   transform: rotate(90deg);
 }
 
+//Products
+
 #products-list{
  display: flex;
  justify-content: space-between;
@@ -149,7 +159,9 @@ body._tablet .menu_list > li._active .menu_sub_list {
   }
 }
 
-#cart-window {
+//Card with products
+
+#card-window {
   width: 500px;
   padding: 20px;
   background-color: #e36ea3;
@@ -161,17 +173,17 @@ body._tablet .menu_list > li._active .menu_sub_list {
   margin: 20px;
  
 
-  .cart-item {
+  .card-item {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
   }
-  .close-cart {
+  .close-card, .btn-close-payment {
     position: absolute;
     top: 10px;
     right: 10px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 1.5em;
     }
 
     #total {
@@ -181,7 +193,7 @@ body._tablet .menu_list > li._active .menu_sub_list {
 
 }
 
-.open-cart {
+.open-card {
   cursor: pointer;
   border: none;
   padding: 10px;
@@ -189,7 +201,7 @@ body._tablet .menu_list > li._active .menu_sub_list {
   color: #fff;
 }
 
-.cart-button {
+.card-button {
   background-color: #e36ea3;
   border: none;
   font-size: 1.3em;
@@ -197,7 +209,126 @@ body._tablet .menu_list > li._active .menu_sub_list {
   margin-left: 10px;
 }
 
+//Payment card
 
+.hidden {
+  display: none;
+}
+
+.payment-options {
+  background-color: rgb(210, 231, 231);
+  border-radius: 8px;
+  padding: 8px;
+  border: 1px solid #262626;
+
+  button {
+    padding: 8px 16px;
+    font-size: 1.2rem;
+    background-color: green;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    &:disabled {
+      background-color: #b5b5b5;
+      cursor: not-allowed;
+    }
+  }
+
+  .selector {
+    margin-block: 16px;
+    text-align: center;
+  }
+
+  input.small {
+    width: 80px;
+  }
+
+  .card, .invoice {
+    label {
+      display: flex;
+      gap: 8px;
+      margin-block: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+}
+
+.btn-close-payment {
+  cursor: pointer;
+  text-align: right;
+  display: block;
+}
+
+//Close window  !!!Css style ska ändras  
+.card-pay {
+width: 500px;
+padding: 20px;
+background-color: #e36ea3;
+border: 1px solid #fff;
+position: fixed;
+top:10%;
+left: 30%;
+display: none;
+margin: 20px;
+}
+
+//Form error 
+.error {
+  color: #42ae6e;
+  font-size: 1em;
+}
+
+.information-form {
+  height: 900px;
+  margin-top: 50px;
+}
+
+.form-container {       //!!!Css style ska ändras  
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #e36ea3;
+  border-radius: 5px;
+ 
+    button {
+    padding: 5px 25px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  .btn-delete {
+    border: 2px solid #e36ea3;
+    background-color: #fff;
+  }
+  .btn-submit {
+    border: 2px solid #e36ea3;
+    background-color: #fff;
+  }
+  .send-message {
+    margin-top: 50px;
+    background-color: #fff;
+    color: #000000;
+    border: 1px solid #e36ea3;
+    font-size: 1.5em;
+    padding: 20px;
+    display: none;
+  }
+  #discount-code {
+    width: 50%;
+    border: none;
+  }
+}
+
+.form-group {
+  margin-bottom: 10px;
+  input{
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+}
 
 
 
