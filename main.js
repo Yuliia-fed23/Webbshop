@@ -47,7 +47,7 @@ if (menuLinks.length > 0) {
   }
 }
 
-//----------------------------------------------------------------
+//-------------------Products-----------------------------------//
 const products = [
   {
     id: 0,
@@ -60,7 +60,7 @@ const products = [
       url: '/assets/blueberry donut.jpg',
       width: 200,
       height: 200,
-      alt: '',
+      alt: 'blueberry donut',
     },
   },
 
@@ -75,7 +75,7 @@ const products = [
       url: '/assets/rose donut.jpg',
       width: 200,
       height: 200,
-      alt: '',
+      alt: 'rose donut',
     },
   },
 
@@ -90,7 +90,7 @@ const products = [
       url: '/assets/strawberry donut.jpg',
       width: 200,
       height: 200,
-      alt: '',
+      alt: 'strawberry donut',
     },
   },
 
@@ -105,7 +105,7 @@ const products = [
       url: '/assets/vanilla donut.jpg',
       width: 450,
       height: 450,
-      alt: '',
+      alt: 'vanilla donut',
     },
   },
 
@@ -120,7 +120,7 @@ const products = [
       url: '/assets/sugar donut.jpg',
       width: 200,
       height: 200,
-      alt: '',
+      alt: 'Sugar donut',
     },
   },
 
@@ -135,7 +135,7 @@ const products = [
       url: '/assets/coconut donut.jpg',
       width: 200,
       height: 200,
-      alt: '',
+      alt: 'Coconut donut',
     },
   },
 
@@ -150,7 +150,7 @@ const products = [
       url: '/assets/chocolate donut.jpg',
       width: 200,
       height: 200,
-      alt: '',
+      alt: 'Chocolate donut',
     },
   },
 
@@ -165,7 +165,7 @@ const products = [
       url: '/assets/white chocolate donut.jpg',
       width: 200,
       height: 200,
-      alt: '',
+      alt: 'white chocolate donut',
     },
   },
 
@@ -180,7 +180,7 @@ const products = [
       url: '/assets/apple donut.jpg',
       width: 200,
       height: 200,
-      alt: '',
+      alt: 'apple donut',
     },
   },
 
@@ -195,7 +195,7 @@ const products = [
       url: '/assets/powdered sugar donut.jpg',
       width: 200,
       height: 200,
-      alt: '',
+      alt: 'powdered sugar donut',
     },
   },
 ];
@@ -221,14 +221,14 @@ function displayProducts(products) {
     const productArticle = document.createElement('article');
     productArticle.classList.add('product');
     productArticle.innerHTML = `<h3>${product.name}</h3>
-   <img src='${product.img.url}' alt='${product.img.alt}'/>
+   <img src='${product.img.url}' class="product-image" alt='${product.img.alt}'/>
   <p class='price'>${product.price} kr</p>
   <p>Rating: ${getRatingHtml(product.rating)}</p>
   <div>
   <button class='decrease' id='decrease-${product.id}'>-</button>
   <input type='number' min="0" value='${product.amount}' id='input-${product.id}'>
   <button class='increase' id='increase-${product.id}'>+</button>
-  <button class='add-to-card', ${product.name}, ${product.price})' data-id ='${product.id}' data-name ='${product.name}' data-price='${product.price}'>Add to card</button>
+  <button id='add-to-cart', ${product.name}, ${product.price}', data-id ='${product.id}' data-name ='${product.name}' data-price='${product.price}'>Add to cart</button>
   </div>`;
     productsList.appendChild(productArticle);
   });
@@ -276,10 +276,6 @@ document.getElementById('sortByNameInc').addEventListener('click', sortByNameInc
 document.getElementById('sortByNameDec').addEventListener('click', sortByNameDec);
 document.getElementById('sortByRatingInc').addEventListener('click', sortByRatingInc);
 document.getElementById('sortByRatingDec').addEventListener('click', sortByRatingDec);
-
-
-
-
 
 //---------------------------Increase button---------------------------//
 const increaseButtons = document.querySelectorAll('button.increase');
@@ -332,7 +328,7 @@ function decreaseProductCount(e) {
   document.querySelector(`#input-${decreaseProductId}`).value = products[decreaseFoundProductIndex].amount;
 }
 
-//---------------------------Card with products---------------------------//
+//---------------------------Cart with products---------------------------//
 
 document.addEventListener('DOMContentLoaded', function () {
   const openCartButton = document.querySelector('.card-button');
@@ -341,41 +337,90 @@ document.addEventListener('DOMContentLoaded', function () {
   const closeCartButton = document.querySelector('.close-card');
   closeCartButton.addEventListener('click', closeCart);
 
-  let card = [];
+  let cart = [];
+  const productPrice = products.price;
+  const discount15 = 0.15;
+  const discount10 = 0.1;
 
-  function addToCard(id, name, price) {
-    const existingItem = card.find(item => item.id === id);
-    if (existingItem) {
-      existingItem.amount++;
+  function addToCart(products) {
+    const quantity = parseInt(`input-${products.amount}`).value;
+
+    if (quantity > 0) {
+      const product = {
+        image: product.img,
+        price: product.price,
+        amount: quantity,
+        total: productPrice * quantity,
+      };
+      cart.push(products);
+      updateCart();
     } else {
-      card.push({id, name, price, amount: 1 });
+      alert('Write the right number');
     }
-    updateCart();
   }
 
   function updateCart() {
-    const cartItemContainer = document.getElementById('card-items');
+    const cartItemContainer = document.querySelector('.cart-items');
+    const emptyCartMessage = document.querySelector('.empty-cart-message');
+    const totalPriceElement = document.querySelector('.total-price');
     cartItemContainer.innerHTML = '';
-
-    if(card.length <= 0) {
-      cartItemContainer.innerHTML = '<p>Your card is empty</p>';
+    let totalPrice = 0;
+    if (cart.length === 0) {
+      emptyCartMessage.style.display = 'block';
+      totalPriceElement.innerHTML = '';
+      return;
     }
+    emptyCartMessage.style.display = 'none';
 
-    products.forEach(item => {
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'card-item';
-      itemDiv.innerHTML = `<p>${item.name} x ${item.amount}</p>
-    <p>${item.price * item.amount} kr</p>`;
-      cartItemContainer.appendChild(itemDiv);
+    products.forEach(product => {
+      const productLi = document.createElement('li');
+      productLi.innerHTML = `<img src ='${product.image}' alt='${product.img.alt}' class = 'product-image'>
+      amount: ${product.amount},
+      price: ${product.price} kr`;
+      cartItemContainer.appendChild('li');
+      totalPrice = `Total sum: ${getTotal()} kr`;
     });
-    const totalDiv = document.getElementById('total');
-    totalDiv.innerHTML = `Total sum: ${getTotal()} kr`;
+/////////////////////////////////////////////////////////////////////
+    //Button to add to cart !!! Har problem här
+    ////////////////////////////////////////////////////////////
 
-    addToCard();
+    document.getElementById('add-to-cart').addEventListener('click', function () {
+      updateCart(products);
+
+      cart.push(products);
+    });
+
+    const discount = getDiscount();
+    if (discount > 0) {
+      totalPrice *= 1 - discount;
+      totalPriceElement.innerHTML = `Discount: ${discount * 100}% <br> Total sum: ${totalPrice.toFixed(2)} kr`;
+    } else {
+      totalPriceElement.innerHTML = `Total sum: ${totalPrice} kr`;
+    }
   }
 
-  function getTotal() {
-    return products.reduce((total, item) => total + item.price * item.amount, 0);
+  // Function to calculate the discount
+  function getDiscount() {
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const hours = now.getHours();
+
+    // Check for a 15% discount from Friday 15:00 to Monday 03:00
+    if ((dayOfWeek === 5 && hours >= 15) || dayOfWeek === 6 || (dayOfWeek === 0 && hours < 3)) {
+      return discount15;
+    }
+
+    // Check for a 10% discount on Monday before 10:00
+    if (dayOfWeek === 1 && hours < 10) {
+      return discount10;
+    }
+
+    // If there is no discount
+    return 0;
+  }
+
+  function getTotal(products) {
+    return products.reduce((total, product) => total + product.price * product.amount, 0);
   }
 
   function openCart() {
@@ -388,8 +433,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-
-
 //--------------------------Facture---------------------------//
 
 const cardInvoiceRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
@@ -398,7 +441,7 @@ const inputs = [
   document.querySelector('#creditCardYear'),
   document.querySelector('#creditCardMonth'),
   document.querySelector('#creditCardCvc'),
-  document.querySelector('#personalID')
+  document.querySelector('#personalID'),
 ];
 
 const invoiceOption = document.querySelector('#invoice');
@@ -410,7 +453,9 @@ let selectedPaymentOption = 'card';
 
 // Regex
 const personalIdRegEx = new RegExp(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
-const creditCardNumberRegEx = new RegExp(/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/); // MasterCard
+const creditCardNumberRegEx = new RegExp(
+  /^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/
+); // MasterCard
 
 // Add event listeners
 inputs.forEach(input => {
@@ -426,9 +471,6 @@ cardInvoiceRadios.forEach(radioBtn => {
  * Switches between invoice payment method and
  * card payment method. Toggles their visibility.
  */
-
-
-
 
 function switchPaymentMethod(e) {
   invoiceOption.classList.toggle('hidden');
@@ -446,14 +488,13 @@ function isPersonalIdNumberValid() {
  * correctly filled.
  */
 
-
 function activateOrderButton() {
   orderBtn.setAttribute('disabled', '');
 
   if (selectedPaymentOption === 'invoice' && !isPersonalIdNumberValid()) {
     return;
   }
-  
+
   if (selectedPaymentOption === 'card') {
     // Check card number
     if (creditCardNumberRegEx.exec(creditCardNumber.value) === null) {
@@ -472,7 +513,7 @@ function activateOrderButton() {
     }
 
     // Fixa månad, obs. "padStart" med 0
-    
+
     // Check card CVC
     if (creditCardCvc.value.length !== 3) {
       console.warn('CVC not valid.');
@@ -489,18 +530,13 @@ openCardPayment.addEventListener('click', btnOpenCartPayment);
 const closeCardPayment = document.querySelector('.btn-close-payment');
 closeCardPayment.addEventListener('click', btnCloseCardPayment);
 
-
-
 function btnOpenCartPayment() {
   document.querySelector('.card-pay').style.display = 'block';
 }
 
 function btnCloseCardPayment() {
   document.querySelector('.card-pay').style.display = 'none';
-} 
-
-
-
+}
 
 //---------------------------Customer information form ---------------------------//
 
@@ -508,98 +544,99 @@ const submitBtn = document.querySelector('.btn-submit');
 const deleteBtn = document.querySelector('.btn-delete');
 const purchaseForm = document.getElementById('purchase-form');
 
-function validateForm(){
+function validateForm() {
   let valid = true;
   clearErrors();
 
   const firstName = document.getElementById('first-name').value;
   if (firstName.trim() === '') {
-    document.getElementById('first-name-error').textContent ='Please write your name.';
+    document.getElementById('first-name-error').textContent = 'Please write your name.';
     valid = false;
   }
 
   const lastName = document.getElementById('last-name').value;
   if (lastName.trim() === '') {
-    document.getElementById('last-name-error').textContent ='Please write your last name.';
+    document.getElementById('last-name-error').textContent = 'Please write your last name.';
     valid = false;
   }
 
   const address = document.getElementById('address').value;
   if (address.trim() === '') {
-    document.getElementById('address-error').textContent ='Please write your address.';
+    document.getElementById('address-error').textContent = 'Please write your address.';
     valid = false;
   }
 
   const postcode = document.getElementById('postcode').value;
   const postcodeRegex = /^[0-9]{5,6}$/;
-   if (!postcodeRegex.test(postcode)) {
+  if (!postcodeRegex.test(postcode)) {
     document.getElementById('postcode-error').textContent = 'Please write correct postcode.';
     valid = false;
-   }
-
-   const region = document.getElementById('region').value;
-   if (region.trim() ==='') {
-    document.getElementById('region-error').textContent ='Please write your region.';
-    valid = false;
-   }
-
-   const phone = document.getElementById('phone').value;
-   const phoneRegex = /^\+460\d{9}$/;
-   if (!phoneRegex.test(phone)) {
-    document.getElementById('phone-error').textContent ='Please write your phone.';
-    valid = false;
-   }
-
-   const email = document.getElementById('email').value;
-   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-   if (!emailRegex.test(email)) {
-    document.getElementById('email-error').textContent ='Please write correct email.';
-    valid = false;
-   }
-
-   if (valid) {
-    thankYouMessage(); 
-   return valid;
   }
 
-};
+  const region = document.getElementById('region').value;
+  if (region.trim() === '') {
+    document.getElementById('region-error').textContent = 'Please write your region.';
+    valid = false;
+  }
 
-submitBtn.addEventListener('click', function(event){
+  const phone = document.getElementById('phone').value;
+  const phoneRegex = /^\+460\d{9}$/;
+  if (!phoneRegex.test(phone)) {
+    document.getElementById('phone-error').textContent = 'Please write your phone.';
+    valid = false;
+  }
+
+  const email = document.getElementById('email').value;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(email)) {
+    document.getElementById('email-error').textContent = 'Please write correct email.';
+    valid = false;
+  }
+
+  if (valid) {
+    thankYouMessage();
+    return valid;
+  }
+}
+
+submitBtn.addEventListener('click', function (event) {
   event.preventDefault();
-  if (validateForm(this) == true){
+  if (validateForm(this) == true) {
     thankYouMessage();
   }
 });
 
-deleteBtn.addEventListener('click', function(){
+deleteBtn.addEventListener('click', function () {
   clearForm();
 });
 
- clearErrors();
-
+clearErrors();
 
 function clearForm() {
- purchaseForm.reset();
-};
+  purchaseForm.reset();
+}
 
 function clearErrors() {
   const errorMessages = document.querySelectorAll('.error');
   errorMessages.forEach(error => {
-    error.textContent= '';
+    error.textContent = '';
   });
 }
 
-function thankYouMessage(){
+function thankYouMessage() {
   const sendMessage = document.querySelector('.send-message');
   const currentDate = new Date();
-  
+
   currentDate.setDate(currentDate.getDate() + 2);
-  const deliveryDate = currentDate.toLocaleString ('en-En', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-  currentDate.toLocaleString ('sv-SV', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
+  const deliveryDate = currentDate.toLocaleString('en-En', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  currentDate.toLocaleString('sv-SV', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
   sendMessage.innerHTML = `Thank you for your order! You will receive your order on ${deliveryDate}.`;
-  sendMessage.style.display='block';
+  sendMessage.style.display = 'block';
   clearForm();
 }
-
-
