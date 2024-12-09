@@ -220,7 +220,7 @@ function displayProducts(products) {
   products.forEach(product => {
     const productArticle = document.createElement('article');
     productArticle.classList.add('product');
-    productArticle.innerHTML = `<h3>${product.name}</h3>
+    productArticle.innerHTML = `<h4>${product.name}</h4>
    <img src='${product.img.url}' class="product-image" alt='${product.img.alt}'/>
   <p class='price'>${product.price} kr</p>
   <p>Rating: ${getRatingHtml(product.rating)}</p>
