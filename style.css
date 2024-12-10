@@ -82,12 +82,13 @@ input {
 .menu_body ul {
   list-style-type: none;
 }
-.menu_body ul .menu_list {
+
+.menu_list {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
-.menu_body ul li {
+.menu_list li {
   position: relative;
   margin: 0px 0px 0px 20px;
 }

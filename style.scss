@@ -57,7 +57,7 @@ input {
 
 .menu_body ul {
   list-style-type: none;
-
+}
 
 .menu_list {
   display: flex;
@@ -65,6 +65,7 @@ input {
     position: relative;
     margin: 0px 0px 0px 20px;
   }
+}
 //Products
 
 #products-list {
@@ -90,7 +91,7 @@ input {
   }
 }
 
-//Card with products
+//Cart with products
 
 #cart {
   width: 500px;
@@ -328,7 +329,6 @@ button {
 
 .form-group #discount-code {
   border: 1px solid #e9a3c3;
-  ;
 }
 
 .cart-item-image {
