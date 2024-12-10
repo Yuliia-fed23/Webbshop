@@ -3,49 +3,6 @@ import './style.scss';
 //import viteLogo from '/vite.svg';
 //import { setupCounter } from './counter.js';
 
-function checkScreenSize() {
-  let width = window.innerWidth;
-
-  if (width < 768) {
-    document.body.classList.add('_mobile');
-  } else if (width >= 768 && width < 1024) {
-    document.body.classList.add('_tablet');
-  } else {
-    document.body.classList.add('_desktop');
-  }
-}
-
-checkScreenSize();
-
-let menuArrow = document.querySelectorAll('.menu_arrow');
-if (menuArrow.length > 0) {
-  for (let i = 0; i < menuArrow.length; i++) {
-    const menuArrowItem = menuArrow[i];
-    menuArrowItem.addEventListener('click', function (e) {
-      menuArrowItem.parentElement.classList.toggle('_active');
-    });
-  }
-}
-
-const menuLinks = document.querySelectorAll('.menu_link[data-goto]');
-if (menuLinks.length > 0) {
-  menuLinks.forEach(menuLink => {
-    menuLink.addEventListener('click', onMenuLinkClick);
-  });
-  function onMenuLinkClick(e) {
-    const menuLink = e.target;
-    if (menuLink.dataset.goto && document.querySelector(menuLink.dataset.goto)) {
-      const gotoBlock = document.querySelector(menuLink.dataset.goto);
-      const gotoBlockValue =
-        gotoBlock.getBoundingClientRect().top + scrollY - document.querySelector('header').offsetHeight;
-      window.scrollTo({
-        top: gotoBlockValue,
-        behavior: 'smooth',
-      });
-      e.preventDefault();
-    }
-  }
-}
 
 //-------------------Products-----------------------------------//
 const products = [
@@ -228,7 +185,7 @@ function displayProducts(products) {
   <button class='decrease' id='decrease-${product.id}'>-</button>
   <input type='number' min="0" value='${product.amount}' id='input-${product.id}'>
   <button class='increase' id='increase-${product.id}'>+</button>
-  <button id='add-to-cart', ${product.name}, ${product.price}', data-id ='${product.id}' data-name ='${product.name}' data-price='${product.price}'>Add to cart</button>
+  <button class='add-to-cart'  data-product-image='${product.img.url}', data-product-id='${product.id}', data-product-name ='${product.name}', data-product-value ='${product.amount}' data-product-price='${product.price}'>Add to cart</button>
   </div>`;
     productsList.appendChild(productArticle);
   });
@@ -284,7 +241,7 @@ increaseButtons.forEach(button => {
 });
 
 function increaseProductCount(e) {
-  const productId = Number(e.target.id.replace('increase-', ''));
+  let productId = Number(e.target.id.replace('increase-', ''));
   const foundProductIndex = products.findIndex(product => product.id === productId);
   products[foundProductIndex].amount += 1;
   document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
@@ -329,8 +286,113 @@ function decreaseProductCount(e) {
 }
 
 //---------------------------Cart with products---------------------------//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Масив для збереження товарів у кошику
+let cart = [];
 
-document.addEventListener('DOMContentLoaded', function () {
+// Об'єкт для товарів
+
+// Функція для додавання товару в кошик
+function addToCart(productId) {
+    const product = products[productId];
+
+    if (product) {
+       cart.push(product);  // Додаємо товар до кошика
+        updateCartDisplay();  // Оновлюємо відображення кошика
+    }
+}
+
+// Функція для обчислення ціни з урахуванням знижок
+function calculateTotalPrice() {
+    let totalPrice = 0;
+    products.forEach(item => {
+        totalPrice += item.price;
+    });
+
+    // Перевіряємо, чи є знижка на загальну суму
+    const discount = getDiscount();
+    totalPrice = totalPrice - totalPrice * discount;
+
+    return totalPrice;
+}
+
+// Функція для отримання знижки
+function getDiscount() {
+    const currentDate = new Date();
+    const currentDay = currentDate.getDay(); // День тижня (0 - неділя, 1 - понеділок, 6 - субота)
+    const currentHour = currentDate.getHours(); // Час в годинах (0-23)
+
+    // Перевірка знижки по понеділках до 10:00
+    if (currentDay === 1 && currentHour < 10) {
+        return 0.10; // Знижка 10% в понеділок до 10:00
+    }
+
+    // Перевірка знижки з п’ятниці 15:00 до понеділка 03:00
+    if (currentDay === 5 && currentHour >= 15 || currentDay === 6 || (currentDay === 0 && currentHour < 3)) {
+        return 0.15; // Знижка 15% з п’ятниці 15:00 до понеділка 03:00
+    }
+
+    return 0; // Немає знижки
+}
+
+// Функція для оновлення відображення кошика
+function updateCartDisplay() {
+    const cartItemsList = document.getElementById("cart-items");
+    const totalPriceElement = document.getElementById("total-price");
+
+    // Очищаємо список товарів у кошику
+    cartItemsList.innerHTML = '';
+
+    // Додаємо кожен товар у кошик
+   cart.forEach(item => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<img src='${item.img.url}' class="cart-item-image"/> <span class="cart-item-name">${item.name}</span> - <span class="cart-item-quantity">${item.amount}</span> - <span class="cart-item-price"${item.price}</span> kr`;
+        cartItemsList.appendChild(listItem);
+    });
+
+    // Обчислюємо загальну суму з урахуванням знижки
+    const totalPrice = calculateTotalPrice();
+    totalPriceElement.textContent = `Total sum: ${totalPrice.toFixed(2)} kr`;
+}
+
+// Додаємо слухачів подій для кнопок "Додати в кошик"
+document.querySelectorAll(".add-to-cart").forEach(button => {
+    button.addEventListener("click", function() {
+        const productId = parseInt(this.dataset.productId);
+        
+        // Викликаємо функцію додавання товару в кошик
+        addToCart(productId);
+    });
+});
+
+// Слухач події для кнопки показу кошика
+document.getElementById("show-cart-btn").addEventListener("click", function() {
+    const cartElement = document.getElementById("cart");
+
+    // Перевіряємо поточний стан видимості кошика
+    if (cartElement.style.display === "none") {
+        cartElement.style.display = "block";  // Показуємо кошик
+    } else {
+        cartElement.style.display = "none";  // Приховуємо кошик
+    }
+});
+
+
+const closeBtn = document.querySelector('.close-cart');
+const cartWindow = document.getElementById('cart');
+
+closeBtn.addEventListener('click', function() {
+  cartWindow.style.display ='none';
+});
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*document.addEventListener('DOMContentLoaded', function () {
   const openCartButton = document.querySelector('.card-button');
   openCartButton.addEventListener('click', openCart);
 
@@ -344,6 +406,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function addToCart(products) {
     const quantity = parseInt(`input-${products.amount}`).value;
+    console.log('hej hej');
 
     if (quantity > 0) {
       const product = {
@@ -361,16 +424,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function updateCart() {
     const cartItemContainer = document.querySelector('.cart-items');
+    console.log('Hej');
     const emptyCartMessage = document.querySelector('.empty-cart-message');
     const totalPriceElement = document.querySelector('.total-price');
     cartItemContainer.innerHTML = '';
     let totalPrice = 0;
     if (cart.length === 0) {
       emptyCartMessage.style.display = 'block';
-      totalPriceElement.innerHTML = '';
+      totalPriceElement.innerHTML = 'Your cart is empty';
       return;
     }
+  
     emptyCartMessage.style.display = 'none';
+  
 
     products.forEach(product => {
       const productLi = document.createElement('li');
@@ -380,15 +446,21 @@ document.addEventListener('DOMContentLoaded', function () {
       cartItemContainer.appendChild('li');
       totalPrice = `Total sum: ${getTotal()} kr`;
     });
+  
+  
 /////////////////////////////////////////////////////////////////////
     //Button to add to cart !!! Har problem här
     ////////////////////////////////////////////////////////////
 
     document.getElementById('add-to-cart').addEventListener('click', function () {
-      updateCart(products);
+    updateCart();
 
       cart.push(products);
+      console.log('click', products.id);
+    
     });
+
+    console.log('cart is', cart);
 
     const discount = getDiscount();
     if (discount > 0) {
@@ -431,11 +503,11 @@ document.addEventListener('DOMContentLoaded', function () {
   function closeCart() {
     document.getElementById('card-window').style.display = 'none';
   }
-});
+//});*/
 
 //--------------------------Facture---------------------------//
 
-const cardInvoiceRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
+/*const cardInvoiceRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
 const inputs = [
   document.querySelector('#creditCardNumber'),
   document.querySelector('#creditCardYear'),
@@ -472,6 +544,10 @@ cardInvoiceRadios.forEach(radioBtn => {
  * card payment method. Toggles their visibility.
  */
 
+
+
+/*
+
 function switchPaymentMethod(e) {
   invoiceOption.classList.toggle('hidden');
   cardOption.classList.toggle('hidden');
@@ -488,6 +564,8 @@ function isPersonalIdNumberValid() {
  * correctly filled.
  */
 
+
+/*
 function activateOrderButton() {
   orderBtn.setAttribute('disabled', '');
 
@@ -537,7 +615,7 @@ function btnOpenCartPayment() {
 function btnCloseCardPayment() {
   document.querySelector('.card-pay').style.display = 'none';
 }
-
+*/
 //---------------------------Customer information form ---------------------------//
 
 const submitBtn = document.querySelector('.btn-submit');
@@ -640,3 +718,5 @@ function thankYouMessage() {
   sendMessage.style.display = 'block';
   clearForm();
 }
+
+

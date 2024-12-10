@@ -7,6 +7,15 @@
 //Ska jobba med css styles/design
 //Ska skapa variables och  mixins som har samma css styles   
 
+li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
 
 input {
   border: 1px solid #e9a3c3;
@@ -45,106 +54,17 @@ input {
   }
 }
 
-.menu_icon span {
-  display: none;
-}
-
 
 .menu_body ul {
   list-style-type: none;
-}
+
 
 .menu_list {
   display: flex;
-
-  a {
-    text-decoration: none;
-  }
-
   li {
     position: relative;
     margin: 0px 0px 0px 20px;
   }
-}
-
-.menu_link {
-  color: #000000;
-  font-size: 1.2em;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.menu_sub_list {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #e9a3c3;
-  padding: 15px;
-  min-width: 200px;
-  visibility: hidden;
-
-  li {
-    margin: 0px 0px 10px 0px;
-
-    &:last-child {
-      margin: 0;
-    }
-  }
-
-  .menu_sub_link {
-    color: #000000;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.menu_arrow {
-  display: none;
-  color: #000000;
-}
-
-body._tablet .menu_list>li {
-  display: flex;
-  align-items: center;
-}
-
-body._tablet .menu_arrow {
-  display: block;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 10px solid #000000;
-  transition: transform 0.3s ease 0s;
-  margin: 0px 0px 0px 5px;
-}
-
-body._tablet .menu_link {
-  flex: 1 1 auto;
-}
-
-body._desktop .menu_list>li :hover .menu_sub_list {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(0px, 0px);
-  pointer-events: all;
-}
-
-body._tablet .menu_list>li._active .menu_sub_list {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(0px, 0px);
-  pointer-events: all;
-}
-
-.body._tablet .menu_list>li._active .menu_arrow {
-  transform: rotate(90deg);
-}
-
 //Products
 
 #products-list {
@@ -172,7 +92,7 @@ body._tablet .menu_list>li._active .menu_sub_list {
 
 //Card with products
 
-#card-window {
+#cart {
   width: 500px;
   padding: 20px;
   background-color: #e9a3c3;
@@ -189,13 +109,13 @@ body._tablet .menu_list>li._active .menu_sub_list {
   }
 
 
-  .card-item {
+  #cart-items {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
   }
 
-  .close-card,
+  .close-cart,
   .btn-close-payment {
     position: absolute;
     top: 10px;
@@ -204,27 +124,11 @@ body._tablet .menu_list>li._active .menu_sub_list {
     font-size: 1.5em;
   }
 
-  #total {
+  #total-price {
     font-weight: bold;
     margin-top: 20px;
   }
 
-}
-
-.open-card {
-  cursor: pointer;
-  border: none;
-  padding: 10px;
-  background-color: aqua;
-  color: #fff;
-}
-
-.card-button {
-  background-color: #e9a3c3;
-  border: none;
-  font-size: 1.3em;
-  color: #000000;
-  margin-left: 10px;
 }
 
 //Payment card
@@ -381,7 +285,7 @@ body._tablet .menu_list>li._active .menu_sub_list {
   }
 }
 
-#add-to-cart {
+.add-to-cart {
   background-color: #e9a3c3;
   cursor: pointer;
 
@@ -425,4 +329,10 @@ button {
 .form-group #discount-code {
   border: 1px solid #e9a3c3;
   ;
+}
+
+.cart-item-image {
+  width: 60px;
+  height: 50px;
+  margin-right: 10px;
 }
