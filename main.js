@@ -25,7 +25,7 @@ const products = [
     rating: 3,
     category: 'sweet',
     img: {
-      url: '/assets/rose donut.jpg',
+      url: 'assets/rose donut.jpg',
       width: 200,
       height: 200,
       alt: 'rose donut',
@@ -40,7 +40,7 @@ const products = [
     rating: 2,
     category: 'fruit',
     img: {
-      url: '/assets/strawberry donut.jpg',
+      url: 'assets/strawberry donut.jpg',
       width: 200,
       height: 200,
       alt: 'strawberry donut',
@@ -55,7 +55,7 @@ const products = [
     rating: 1.5,
     category: 'filling',
     img: {
-      url: '/assets/vanilla donut.jpg',
+      url: 'assets/vanilla donut.jpg',
       width: 450,
       height: 450,
       alt: 'vanilla donut',
@@ -70,7 +70,7 @@ const products = [
     rating: 4,
     category: 'sweet',
     img: {
-      url: '/assets/sugar donut.jpg',
+      url: 'assets/sugar donut.jpg',
       width: 200,
       height: 200,
       alt: 'Sugar donut',
@@ -85,7 +85,7 @@ const products = [
     rating: 2.5,
     category: 'filling',
     img: {
-      url: '/assets/coconut donut.jpg',
+      url: 'assets/coconut donut.jpg',
       width: 200,
       height: 200,
       alt: 'Coconut donut',
@@ -100,7 +100,7 @@ const products = [
     rating: 4.5,
     category: 'fruit',
     img: {
-      url: '/assets/chocolate donut.jpg',
+      url: 'assets/chocolate donut.jpg',
       width: 200,
       height: 200,
       alt: 'Chocolate donut',
@@ -115,7 +115,7 @@ const products = [
     rating: 5,
     category: 'sweet',
     img: {
-      url: '/assets/white chocolate donut.jpg',
+      url: 'assets/white chocolate donut.jpg',
       width: 200,
       height: 200,
       alt: 'white chocolate donut',
@@ -130,7 +130,7 @@ const products = [
     rating: 4.5,
     category: 'fruit',
     img: {
-      url: '/assets/apple donut.jpg',
+      url: 'assets/apple donut.jpg',
       width: 200,
       height: 200,
       alt: 'apple donut',
@@ -145,7 +145,7 @@ const products = [
     rating: 4,
     category: 'sweet',
     img: {
-      url: '/assets/powdered sugar donut.jpg',
+      url: 'assets/powdered sugar donut.jpg',
       width: 200,
       height: 200,
       alt: 'powdered sugar donut',
