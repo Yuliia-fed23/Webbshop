@@ -18,7 +18,7 @@
     <div class="wrapper">
       <header class="header">
         <div class="header_container">
-          <a href="" class="header_logo"><img src="assets/logo.png" alt="Donuts Shop Logo" /></a>
+          <a href="" class="header_logo"><img src="assets/logo.png" alt="Donuts Shop Logo"></a>
           <div class="header_menu">
             <button id="show-cart-btn" aria-label ="show cart button"><i class="fa-solid fa-basket-shopping"></i></button>
           </div>
@@ -57,38 +57,38 @@
           <span class="btn-close-payment">X</span>
           <div class="payment-options">
             <div class="selector">
-              <label>
-                <input class="payment-factura" type="radio" name="payment-option" value="invoice" />
+              <label for="payment-factura">
+                <input class="payment-factura" type="radio" name="payment-option" value="invoice">
                 <span>Facture</span>
               </label>
-              <label>
-                <input type="radio" name="payment-option" value="card" checked />
+              <label for="payment-option">
+                <input type="radio" id="payment-option" name="payment-option" value="card" checked>
                 <span>Card</span>
               </label>
             </div>
 
             <div class="invoice hidden" id="invoice">
-              <label>
+              <label for="personalID">
                 <span>Personnummer</span>
-                <input type="text" name="personal-id" id="personalID" value="19850505-1234" />
+                <input type="text" name="personal-id" id="personalID" value="19850505-1234">
               </label>
             </div>
 
             <div class="card" id="card">
-              <label>
+              <label for="creditCardNumber">
                 <span>Kortnummer</span>
-                <input type="number" id="creditCardNumber" value="5100080000000000" />
+                <input type="number" id="creditCardNumber" value="5100080000000000">
               </label>
-              <label>
+              <label for="creditCard">
                 <span>Datum</span>
                 <span>
-                  <input type="number" class="small" placeholder="YY" id="creditCardYear" />
-                  /<input type="number" class="small" placeholder="MM" id="creditCardMonth"/>
+                  <input type="number" class="small" placeholder="YY" id="creditCardYear">
+                  /<input type="number" class="small" placeholder="MM" id="creditCardMonth">
                 </span>
               </label>
-              <label>
+              <label for="reditCardCvc">
                 <span>CVC</span>
-                <input type="number" placeholder="123" id="creditCardCvc"/>
+                <input type="number" placeholder="123" id="creditCardCvc">
               </label>
             </div>
 
@@ -102,58 +102,58 @@
             <form id="purchase-form">
               <div class="form-group">
                 <label for="first-name">Name: </label>
-                <input type="text" id="first-name" name="first-name" />
+                <input type="text" id="first-name" name="first-name">
                 <span id="first-name-error" class="error"></span>
               </div>
 
               <div class="form-group">
                 <label for="last-name">Last name: </label>
-                <input type="text" id="last-name" name="last-name" />
+                <input type="text" id="last-name" name="last-name">
                 <span id="last-name-error" class="error"></span>
               </div>
 
               <div class="form-group">
                 <label for="address">Address: </label>
-                <input type="text" id="address" name="address" />
+                <input type="text" id="address" name="address">
                 <span id="address-error" class="error"></span>
               </div>
 
               <div class="form-group">
                 <label for="postcode">Postcode: </label>
-                <input type="text" id="postcode" name="postcode"/>
+                <input type="text" id="postcode" name="postcode">
                 <span id="postcode-error" class="error"></span>
               </div>
 
               <div class="form-group">
                 <label for="region">Region: </label>
-                <input type="text" id="region" name="region" />
+                <input type="text" id="region" name="region">
                 <span id="region-error" class="error"></span>
               </div>
 
               <div class="form-group">
                 <label for="phone">Phone: </label>
-                <input type="text" id="phone" name="phone" />
+                <input type="text" id="phone" name="phone">
                 <span id="phone-error" class="error"></span>
               </div>
 
               <div class="form-group">
                 <label for="email">Email: </label>
-                <input type="email" id="email" name="email" />
+                <input type="email" id="email" name="email">
                 <span id="email-error" class="error"></span>
               </div>
 
               <div class="form-group">
                 <label for="discount-code">Discount Code: </label>
-                <input type="text" id="discount-code" name="discount-code" />
+                <input type="text" id="discount-code" name="discount-code">
               </div>
 
               <div class="checkbox-group">
-                <input type="checkbox" name="personal-data" checked />
+                <input type="checkbox" name="personal-data" checked>
                 <label>Agree to share my personal data</label>
               </div>
 
               <div class="checkbox-group">
-                <input type="checkbox" name="newsletter" />
+                <input type="checkbox" name="newsletter">
                 <label>Subscribe to our newsletter.</label>
               </div>
 
@@ -163,7 +163,7 @@
             <div class="send-message"></div>
           </div>
         </section>
-        <!-----Footer------->
+       
         <footer class="footer-container">
           <div class="copyright-container">
             <p><span>Copyright &copy; 2024</span>| All rights reserved</p>
