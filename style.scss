@@ -2,10 +2,20 @@
 @import 'mobile';
 @import 'tablet';
 
-//!!!!!!!!!!!!!!   OBS
+$primary-color: #e9a3c3;
 
-//Ska jobba med css styles/design
-//Ska skapa variables och  mixins som har samma css styles   
+%btn-form {
+  border: 2px solid $primary-color;
+  background-color: #fff;
+}
+
+body {
+  .roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+}
 
 li {
   list-style: none;
@@ -18,8 +28,7 @@ a {
 }
 
 input {
-  border: 1px solid #e9a3c3;
-  appearance: none;
+  border: 1px solid $primary-color;
   cursor: pointer;
 }
 
@@ -31,7 +40,7 @@ input {
   left: 0;
   width: 100%;
   z-index: 10;
-  background-color: #e9a3c3;
+  background-color: $primary-color;
 
   .header_container {
     max-width: 1200px;
@@ -61,11 +70,19 @@ input {
 
 .menu_list {
   display: flex;
+
   li {
     position: relative;
     margin: 0px 0px 0px 20px;
   }
 }
+
+#show-cart-btn {
+  background-color: transparent;
+  font-size: 1.5em;
+  color: #fff;
+}
+
 //Products
 
 #products-list {
@@ -77,6 +94,10 @@ input {
   .product {
     text-align: center;
     width: 240px;
+
+    .price {
+      font-size: 1.2em;
+    }
   }
 
   img {
@@ -96,17 +117,19 @@ input {
 #cart {
   width: 500px;
   padding: 20px;
-  background-color: #e9a3c3;
+  background-color: $primary-color;
   border: 1px solid #fff;
   position: fixed;
   top: 20%;
   left: 30%;
   display: none;
   margin: 20px;
+
   .btn-pay {
-    padding: 10px;
+    padding: 10px 15px;
     background-color: #fff;
     cursor: pointer;
+    border: 1px solid $primary-color;
   }
 
 
@@ -114,6 +137,8 @@ input {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .close-cart,
@@ -123,6 +148,7 @@ input {
     right: 10px;
     cursor: pointer;
     font-size: 1.5em;
+    background-color: transparent;
   }
 
   #total-price {
@@ -187,11 +213,11 @@ input {
   display: block;
 }
 
-//Close window  !!!Css style ska ändras  
+//Close window   
 .card-pay {
   width: 500px;
   padding: 20px;
-  background-color: #e9a3c3;
+  background-color: $primary-color;
   border: 1px solid #fff;
   position: fixed;
   top: 10%;
@@ -207,16 +233,15 @@ input {
 }
 
 .information-form {
-  height: 900px;
-  margin-top: 50px;
+  min-height: 100vh;
+  margin: 20px 0;
 }
 
 .form-container {
-  //!!!Css style ska ändras  
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
-  border: 2px solid #e9a3c3;
+  border: 2px solid $primary-color;
   border-radius: 5px;
 
   button {
@@ -225,21 +250,18 @@ input {
     cursor: pointer;
   }
 
-  .btn-delete {
-    border: 2px solid #e9a3c3;
-    background-color: #fff;
+  .btn-delete,
+  .btn-submit {
+    @extend %btn-form;
   }
 
-  .btn-submit {
-    border: 2px solid #e9a3c3;
-    background-color: #fff;
-  }
+
 
   .send-message {
     margin-top: 50px;
     background-color: #fff;
     color: #000000;
-    border: 1px solid #e9a3c3;
+    border: 1px solid $primary-color;
     font-size: 1.5em;
     padding: 20px;
     display: none;
@@ -287,7 +309,7 @@ input {
 }
 
 .add-to-cart {
-  background-color: #e9a3c3;
+  background-color: $primary-color;
   cursor: pointer;
 
   &:hover {
@@ -296,13 +318,14 @@ input {
 }
 
 button {
-  border: 2px solid #e9a3c3;
+  border: 2px solid $primary-color;
 }
 
 .products-items {
   button {
-    background-color: #e9a3c3;
+    background-color: $primary-color;
     margin: 20px 3px;
+
     &:hover {
       background-color: #ffffff;
     }
@@ -323,16 +346,43 @@ button {
 .btn-delete,
 .btn-submit {
   &:hover {
-    background-color: #e9a3c3;
+    background-color: $primary-color;
   }
 }
 
 .form-group #discount-code {
-  border: 1px solid #e9a3c3;
+  border: 1px solid $primary-color;
 }
 
 .cart-item-image {
   width: 60px;
   height: 50px;
+  margin-right: 10px;
+}
+
+.footer-container {
+  background-color: $primary-color;
+  height: 100vh;
+  color: #fff;
+  height: 80px;
+  position: relative;
+
+  p {
+    font-size: 1.3em;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+  }
+}
+
+.checkbox-group input {
+  border: 3px solid $primary-color;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  cursor: pointer;
   margin-right: 10px;
 }

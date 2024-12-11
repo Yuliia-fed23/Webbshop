@@ -24,6 +24,17 @@
     background-color: white;
   }
 }
+.form-container .btn-delete, .form-container .btn-submit {
+  border: 2px solid #e9a3c3;
+  background-color: #fff;
+}
+
+body .roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 li {
   list-style: none;
   display: -webkit-box;
@@ -40,9 +51,6 @@ a {
 
 input {
   border: 1px solid #e9a3c3;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
   cursor: pointer;
 }
 
@@ -93,6 +101,12 @@ input {
   margin: 0px 0px 0px 20px;
 }
 
+#show-cart-btn {
+  background-color: transparent;
+  font-size: 1.5em;
+  color: #fff;
+}
+
 #products-list {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -107,6 +121,9 @@ input {
 #products-list .product {
   text-align: center;
   width: 240px;
+}
+#products-list .product .price {
+  font-size: 1.2em;
 }
 #products-list img {
   max-width: 100%;
@@ -131,9 +148,10 @@ input {
   margin: 20px;
 }
 #cart .btn-pay {
-  padding: 10px;
+  padding: 10px 15px;
   background-color: #fff;
   cursor: pointer;
+  border: 1px solid #e9a3c3;
 }
 #cart #cart-items {
   display: -webkit-box;
@@ -143,6 +161,9 @@ input {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-bottom: 10px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 10px;
 }
 #cart .close-cart,
 #cart .btn-close-payment {
@@ -151,6 +172,7 @@ input {
   right: 10px;
   cursor: pointer;
   font-size: 1.5em;
+  background-color: transparent;
 }
 #cart #total-price {
   font-weight: bold;
@@ -226,8 +248,8 @@ input {
 }
 
 .information-form {
-  height: 900px;
-  margin-top: 50px;
+  min-height: 100vh;
+  margin: 20px 0;
 }
 
 .form-container {
@@ -241,14 +263,6 @@ input {
   padding: 5px 25px;
   margin-top: 10px;
   cursor: pointer;
-}
-.form-container .btn-delete {
-  border: 2px solid #e9a3c3;
-  background-color: #fff;
-}
-.form-container .btn-submit {
-  border: 2px solid #e9a3c3;
-  background-color: #fff;
 }
 .form-container .send-message {
   margin-top: 50px;
@@ -343,5 +357,31 @@ button {
 .cart-item-image {
   width: 60px;
   height: 50px;
+  margin-right: 10px;
+}
+
+.footer-container {
+  background-color: #e9a3c3;
+  height: 100vh;
+  color: #fff;
+  height: 80px;
+  position: relative;
+}
+.footer-container p {
+  font-size: 1.3em;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.checkbox-group input {
+  border: 3px solid #e9a3c3;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  cursor: pointer;
   margin-right: 10px;
 }

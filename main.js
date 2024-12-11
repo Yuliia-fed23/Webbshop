@@ -1,18 +1,14 @@
 import './style.scss';
-//import javascriptLogo from './javascript.svg';
-//import viteLogo from '/vite.svg';
-//import { setupCounter } from './counter.js';
-
 
 //-------------------Products-----------------------------------//
 const products = [
   {
     id: 0,
     name: 'Blueberry donut',
-    price: 10,
+    price: 100,
     amount: 0,
     rating: 4,
-    category: 'sweet',
+    category: 'berry',
     img: {
       url: '/assets/blueberry donut.jpg',
       width: 200,
@@ -24,7 +20,7 @@ const products = [
   {
     id: 1,
     name: 'Rose donut',
-    price: 12,
+    price: 120,
     amount: 0,
     rating: 3,
     category: 'sweet',
@@ -42,7 +38,7 @@ const products = [
     price: 13,
     amount: 0,
     rating: 2,
-    category: 'sweet',
+    category: 'fruit',
     img: {
       url: '/assets/strawberry donut.jpg',
       width: 200,
@@ -57,7 +53,7 @@ const products = [
     price: 14,
     amount: 0,
     rating: 1.5,
-    category: 'sweet',
+    category: 'filling',
     img: {
       url: '/assets/vanilla donut.jpg',
       width: 450,
@@ -87,7 +83,7 @@ const products = [
     price: 10,
     amount: 0,
     rating: 2.5,
-    category: 'sweet',
+    category: 'filling',
     img: {
       url: '/assets/coconut donut.jpg',
       width: 200,
@@ -102,7 +98,7 @@ const products = [
     price: 15,
     amount: 0,
     rating: 4.5,
-    category: 'sweet',
+    category: 'fruit',
     img: {
       url: '/assets/chocolate donut.jpg',
       width: 200,
@@ -132,7 +128,7 @@ const products = [
     price: 10,
     amount: 0,
     rating: 4.5,
-    category: 'sweet',
+    category: 'fruit',
     img: {
       url: '/assets/apple donut.jpg',
       width: 200,
@@ -286,228 +282,106 @@ function decreaseProductCount(e) {
 }
 
 //---------------------------Cart with products---------------------------//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Масив для збереження товарів у кошику
+
 let cart = [];
 
-// Об'єкт для товарів
-
-// Функція для додавання товару в кошик
+// Function for adding a product to the cart
 function addToCart(productId) {
-    const product = products[productId];
+  const product = products[productId];
 
-    if (product) {
-       cart.push(product);  // Додаємо товар до кошика
-        updateCartDisplay();  // Оновлюємо відображення кошика
-    }
+  if (product) {
+    cart.push(product);
+    updateCartDisplay();
+  }
 }
 
-// Функція для обчислення ціни з урахуванням знижок
+// A function to calculate the price including discounts
 function calculateTotalPrice() {
-    let totalPrice = 0;
-    products.forEach(item => {
-        totalPrice += item.price;
-    });
+  let totalPrice = 0;
+  cart.forEach(item => {
+    totalPrice += item.price;
+  });
 
-    // Перевіряємо, чи є знижка на загальну суму
-    const discount = getDiscount();
-    totalPrice = totalPrice - totalPrice * discount;
+  const totalItems = cart.reduce((total, item) => total + item.amount * item.price, 0);
 
-    return totalPrice;
+  document.getElementById('total-price').textContent = `Total sum: ${totalItems}`;
+
+  // We check whether there is a discount on the total amount
+  const discount = getDiscount();
+  const discountPrice = totalPrice * (1 - discount / 100);
+  document.querySelector('.discounted-price').textContent = `Discount: ${discountPrice}`;
+  totalPrice = totalPrice - totalPrice * discount;
+
+  return totalPrice;
 }
 
-// Функція для отримання знижки
+// Function to receive a discount
 function getDiscount() {
-    const currentDate = new Date();
-    const currentDay = currentDate.getDay(); // День тижня (0 - неділя, 1 - понеділок, 6 - субота)
-    const currentHour = currentDate.getHours(); // Час в годинах (0-23)
+  const currentDate = new Date();
+  const currentDay = currentDate.getDay();
+  const currentHour = currentDate.getHours();
 
-    // Перевірка знижки по понеділках до 10:00
-    if (currentDay === 1 && currentHour < 10) {
-        return 0.10; // Знижка 10% в понеділок до 10:00
-    }
-
-    // Перевірка знижки з п’ятниці 15:00 до понеділка 03:00
-    if (currentDay === 5 && currentHour >= 15 || currentDay === 6 || (currentDay === 0 && currentHour < 3)) {
-        return 0.15; // Знижка 15% з п’ятниці 15:00 до понеділка 03:00
-    }
-
-    return 0; // Немає знижки
+  // Check the discount on Mondays until 10:00
+  if (currentDay === 1 && currentHour < 10) {
+    return 10;
+  }
+  // Check discount from Friday 15:00 to Monday 03:00
+  else if ((currentDay === 5 && currentHour >= 15) || currentDay === 6 || (currentDay === 0 && currentHour < 3)) {
+    return 15;
+  } else {
+    return 0;
+  }
 }
 
-// Функція для оновлення відображення кошика
+// Function to update the cart display
 function updateCartDisplay() {
-    const cartItemsList = document.getElementById("cart-items");
-    const totalPriceElement = document.getElementById("total-price");
+  const cartItemsList = document.getElementById('cart-items');
+ 
 
-    // Очищаємо список товарів у кошику
-    cartItemsList.innerHTML = '';
+  cartItemsList.innerHTML = '';
 
-    // Додаємо кожен товар у кошик
-   cart.forEach(item => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = `<img src='${item.img.url}' class="cart-item-image"/> <span class="cart-item-name">${item.name}</span> - <span class="cart-item-quantity">${item.amount}</span> - <span class="cart-item-price"${item.price}</span> kr`;
-        cartItemsList.appendChild(listItem);
-    });
+  // Add each product to the cart
+  cart.forEach(item => {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `<img src='${item.img.url}' class="cart-item-image"/>  
+        <span class="cart-item-name"> ${item.name} </span> - 
+        <span class="cart-item-quantity"> ${item.amount} st.</span> - <span class="cart-item-price"> 
+        ${item.price} </span> kr/st.`;
 
-    // Обчислюємо загальну суму з урахуванням знижки
-    const totalPrice = calculateTotalPrice();
-    totalPriceElement.textContent = `Total sum: ${totalPrice.toFixed(2)} kr`;
+    cartItemsList.appendChild(listItem);
+  });
+  calculateTotalPrice();
 }
 
-// Додаємо слухачів подій для кнопок "Додати в кошик"
-document.querySelectorAll(".add-to-cart").forEach(button => {
-    button.addEventListener("click", function() {
-        const productId = parseInt(this.dataset.productId);
-        
-        // Викликаємо функцію додавання товару в кошик
-        addToCart(productId);
-    });
+// Adding event listeners for "Add to Cart" buttons
+document.querySelectorAll('.add-to-cart').forEach(button => {
+  button.addEventListener('click', function () {
+    const productId = parseInt(this.dataset.productId);
+    addToCart(productId);
+  });
 });
 
-// Слухач події для кнопки показу кошика
-document.getElementById("show-cart-btn").addEventListener("click", function() {
-    const cartElement = document.getElementById("cart");
+// Event listener for the show cart button
+document.getElementById('show-cart-btn').addEventListener('click', function () {
+  const cartElement = document.getElementById('cart');
 
-    // Перевіряємо поточний стан видимості кошика
-    if (cartElement.style.display === "none") {
-        cartElement.style.display = "block";  // Показуємо кошик
-    } else {
-        cartElement.style.display = "none";  // Приховуємо кошик
-    }
+  if (cartElement.style.display === 'none') {
+    cartElement.style.display = 'block';
+  } else {
+    cartElement.style.display = 'none';
+  }
 });
-
 
 const closeBtn = document.querySelector('.close-cart');
 const cartWindow = document.getElementById('cart');
 
-closeBtn.addEventListener('click', function() {
-  cartWindow.style.display ='none';
+closeBtn.addEventListener('click', function () {
+  cartWindow.style.display = 'none';
 });
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/*document.addEventListener('DOMContentLoaded', function () {
-  const openCartButton = document.querySelector('.card-button');
-  openCartButton.addEventListener('click', openCart);
-
-  const closeCartButton = document.querySelector('.close-card');
-  closeCartButton.addEventListener('click', closeCart);
-
-  let cart = [];
-  const productPrice = products.price;
-  const discount15 = 0.15;
-  const discount10 = 0.1;
-
-  function addToCart(products) {
-    const quantity = parseInt(`input-${products.amount}`).value;
-    console.log('hej hej');
-
-    if (quantity > 0) {
-      const product = {
-        image: product.img,
-        price: product.price,
-        amount: quantity,
-        total: productPrice * quantity,
-      };
-      cart.push(products);
-      updateCart();
-    } else {
-      alert('Write the right number');
-    }
-  }
-
-  function updateCart() {
-    const cartItemContainer = document.querySelector('.cart-items');
-    console.log('Hej');
-    const emptyCartMessage = document.querySelector('.empty-cart-message');
-    const totalPriceElement = document.querySelector('.total-price');
-    cartItemContainer.innerHTML = '';
-    let totalPrice = 0;
-    if (cart.length === 0) {
-      emptyCartMessage.style.display = 'block';
-      totalPriceElement.innerHTML = 'Your cart is empty';
-      return;
-    }
-  
-    emptyCartMessage.style.display = 'none';
-  
-
-    products.forEach(product => {
-      const productLi = document.createElement('li');
-      productLi.innerHTML = `<img src ='${product.image}' alt='${product.img.alt}' class = 'product-image'>
-      amount: ${product.amount},
-      price: ${product.price} kr`;
-      cartItemContainer.appendChild('li');
-      totalPrice = `Total sum: ${getTotal()} kr`;
-    });
-  
-  
-/////////////////////////////////////////////////////////////////////
-    //Button to add to cart !!! Har problem här
-    ////////////////////////////////////////////////////////////
-
-    document.getElementById('add-to-cart').addEventListener('click', function () {
-    updateCart();
-
-      cart.push(products);
-      console.log('click', products.id);
-    
-    });
-
-    console.log('cart is', cart);
-
-    const discount = getDiscount();
-    if (discount > 0) {
-      totalPrice *= 1 - discount;
-      totalPriceElement.innerHTML = `Discount: ${discount * 100}% <br> Total sum: ${totalPrice.toFixed(2)} kr`;
-    } else {
-      totalPriceElement.innerHTML = `Total sum: ${totalPrice} kr`;
-    }
-  }
-
-  // Function to calculate the discount
-  function getDiscount() {
-    const now = new Date();
-    const dayOfWeek = now.getDay();
-    const hours = now.getHours();
-
-    // Check for a 15% discount from Friday 15:00 to Monday 03:00
-    if ((dayOfWeek === 5 && hours >= 15) || dayOfWeek === 6 || (dayOfWeek === 0 && hours < 3)) {
-      return discount15;
-    }
-
-    // Check for a 10% discount on Monday before 10:00
-    if (dayOfWeek === 1 && hours < 10) {
-      return discount10;
-    }
-
-    // If there is no discount
-    return 0;
-  }
-
-  function getTotal(products) {
-    return products.reduce((total, product) => total + product.price * product.amount, 0);
-  }
-
-  function openCart() {
-    document.getElementById('card-window').style.display = 'block';
-    updateCart();
-  }
-
-  function closeCart() {
-    document.getElementById('card-window').style.display = 'none';
-  }
-//});*/
 
 //--------------------------Facture---------------------------//
 
-/*const cardInvoiceRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
+const cardInvoiceRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
 const inputs = [
   document.querySelector('#creditCardNumber'),
   document.querySelector('#creditCardYear'),
@@ -544,10 +418,6 @@ cardInvoiceRadios.forEach(radioBtn => {
  * card payment method. Toggles their visibility.
  */
 
-
-
-/*
-
 function switchPaymentMethod(e) {
   invoiceOption.classList.toggle('hidden');
   cardOption.classList.toggle('hidden');
@@ -564,9 +434,15 @@ function isPersonalIdNumberValid() {
  * correctly filled.
  */
 
-
-/*
 function activateOrderButton() {
+  const totalPrice = products.reduce((sum, product) => {
+    return sum + product.amount * product.price;
+  }, 0);
+
+  if (totalPrice > 800) {
+    document.querySelector('.payment-factura').disable = true;
+  }
+
   orderBtn.setAttribute('disabled', '');
 
   if (selectedPaymentOption === 'invoice' && !isPersonalIdNumberValid()) {
@@ -615,13 +491,14 @@ function btnOpenCartPayment() {
 function btnCloseCardPayment() {
   document.querySelector('.card-pay').style.display = 'none';
 }
-*/
+
 //---------------------------Customer information form ---------------------------//
 
 const submitBtn = document.querySelector('.btn-submit');
 const deleteBtn = document.querySelector('.btn-delete');
 const purchaseForm = document.getElementById('purchase-form');
 
+//Form validation
 function validateForm() {
   let valid = true;
   clearErrors();
@@ -676,7 +553,7 @@ function validateForm() {
     return valid;
   }
 }
-
+//Add an event to the submit button
 submitBtn.addEventListener('click', function (event) {
   event.preventDefault();
   if (validateForm(this) == true) {
@@ -684,6 +561,7 @@ submitBtn.addEventListener('click', function (event) {
   }
 });
 
+//Clear the form fields
 deleteBtn.addEventListener('click', function () {
   clearForm();
 });
@@ -694,6 +572,7 @@ function clearForm() {
   purchaseForm.reset();
 }
 
+//We show error messages
 function clearErrors() {
   const errorMessages = document.querySelectorAll('.error');
   errorMessages.forEach(error => {
@@ -701,6 +580,7 @@ function clearErrors() {
   });
 }
 
+//Notification of successful form filling and delivery date
 function thankYouMessage() {
   const sendMessage = document.querySelector('.send-message');
   const currentDate = new Date();
@@ -718,5 +598,3 @@ function thankYouMessage() {
   sendMessage.style.display = 'block';
   clearForm();
 }
-
-
