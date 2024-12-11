@@ -326,13 +326,12 @@ input {
   color: #000;
 }
 .discount-section h1 {
-  font-size: 3em;
-  padding: 20px;
+  font-size: 2em;
 }
 .discount-section h2 {
   position: absolute;
   top: 50%;
-  font-size: 2.2em;
+  font-size: 1.7em;
 }
 
 .add-to-cart {
