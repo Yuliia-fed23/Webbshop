@@ -10,7 +10,7 @@ const products = [
     rating: 4,
     category: 'berry',
     img: {
-      url: '/assets/blueberry donut.jpg',
+      url: 'assets/blueberry donut.jpg',
       width: 200,
       height: 200,
       alt: 'blueberry donut',
