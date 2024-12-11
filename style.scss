@@ -1,6 +1,6 @@
-@import 'variables';
-@import 'mobile';
-@import 'tablet';
+@import 'scss/variables';
+@import 'scss/mobile';
+@import 'scss/tablet';
 
 $primary-color: #e9a3c3;
 
@@ -87,13 +87,13 @@ input {
 
 #products-list {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
 
   .product {
     text-align: center;
-    width: 240px;
+    width: 420px;
 
     .price {
       font-size: 1.2em;
@@ -114,17 +114,18 @@ input {
 
 //Cart with products
 
-#cart {
-  width: 500px;
-  padding: 20px;
+#cart, .card-pay {
+  max-width: 500px;
+  width: 80%;
+  height: auto;
   background-color: $primary-color;
-  border: 1px solid #fff;
   position: fixed;
-  top: 20%;
-  left: 30%;
+  top: 50%;
+  left: 50%;
   display: none;
+  padding: 15px;
   margin: 20px;
-
+  transform: translate(-50%, -50%);
   .btn-pay {
     padding: 10px 15px;
     background-color: #fff;
@@ -165,7 +166,7 @@ input {
 }
 
 .payment-options {
-  background-color: rgb(210, 231, 231);
+  background-color: $primary-color;
   border-radius: 8px;
   padding: 8px;
   border: 1px solid #262626;
@@ -173,7 +174,7 @@ input {
   button {
     padding: 8px 16px;
     font-size: 1.2rem;
-    background-color: green;
+    background-color: $primary-color;
     border: 0;
     border-radius: 8px;
     cursor: pointer;
@@ -211,19 +212,6 @@ input {
   cursor: pointer;
   text-align: right;
   display: block;
-}
-
-//Close window   
-.card-pay {
-  width: 500px;
-  padding: 20px;
-  background-color: $primary-color;
-  border: 1px solid #fff;
-  position: fixed;
-  top: 10%;
-  left: 30%;
-  display: none;
-  margin: 20px;
 }
 
 //Form error 

@@ -1,0 +1,10 @@
+$mobile: 568px;
+$tabletMin: 768px;
+$tabletMax: 1024px;
+
+$primary-color: #e9a3c3;
+
+%btn-form {
+  border: 2px solid $primary-color;
+  background-color: #fff;
+}

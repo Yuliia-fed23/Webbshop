@@ -5,7 +5,7 @@ const products = [
   {
     id: 0,
     name: 'Blueberry donut',
-    price: 100,
+    price: 10,
     amount: 0,
     rating: 4,
     category: 'berry',
@@ -20,7 +20,7 @@ const products = [
   {
     id: 1,
     name: 'Rose donut',
-    price: 120,
+    price: 12,
     amount: 0,
     rating: 3,
     category: 'sweet',
