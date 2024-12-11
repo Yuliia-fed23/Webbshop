@@ -296,7 +296,7 @@ input {
 }
 
 .discount-section {
-  background-image: url("/assets/donuts.jpg");
+  background-image: url("assets/donuts.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
