@@ -228,7 +228,7 @@ input {
 }
 
 .form-container {
-  width: 500px;
+  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
   border: 2px solid $primary-color;
