@@ -10,10 +10,7 @@
     width: 100%;
   }
   .discount-section h1 {
-    font-size: 2.3em;
-  }
-  .discount-section h2 {
-    font-size: 1.7;
+    font-size: 1.3em;
   }
   .menu_list {
     display: -webkit-box;
@@ -187,8 +184,8 @@ input {
 #cart .btn-close-payment, .card-pay .close-cart,
 .card-pay .btn-close-payment {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 20px;
   cursor: pointer;
   font-size: 1.5em;
   background-color: transparent;
@@ -257,14 +254,29 @@ input {
 .information-form {
   min-height: 100vh;
   margin: 20px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .form-container {
-  max-width: 500px;
+  width: 500px;
   margin: 0 auto;
   padding: 20px;
   border: 2px solid #e9a3c3;
   border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  margin: 10px;
 }
 .form-container button {
   padding: 5px 25px;
@@ -370,7 +382,7 @@ button {
 .footer-container {
   background-color: #e9a3c3;
   height: 100vh;
-  color: #fff;
+  color: #000;
   height: 80px;
   position: relative;
 }
